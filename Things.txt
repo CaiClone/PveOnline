@@ -1,4 +1,5 @@
-Load dungeons config from XML?
+Load dungeons config from Tiled?
 Dungeons and small rooms
 Bufs, Debufs (modStat class?)
 States + Inmunity to states
+race? Human?

@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Faggotrylib.Screen;
 using PvEOnline.Screens;
 
 namespace PvEOnline
@@ -30,7 +29,7 @@ namespace PvEOnline
         {
             settings = Settings.loadSettings();
             Resolution.Init(ref graphics);
-            Resolution.SetVirtualResolution(1920, 1080);
+            Resolution.SetVirtualResolution(1920, 1280);
             Resolution.SetResolution((int)settings.resolution.X, (int)settings.resolution.Y,settings.fullscreen);
             this.IsMouseVisible = true;
 
