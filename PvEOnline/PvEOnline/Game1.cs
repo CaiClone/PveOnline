@@ -16,7 +16,7 @@ namespace PvEOnline
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
         public Settings settings;
         public ScreenManager screenManager;
@@ -60,8 +60,9 @@ namespace PvEOnline
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Resolution.getTransformationMatrix());
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }

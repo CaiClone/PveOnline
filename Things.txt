@@ -1,2 +1,4 @@
 Load dungeons config from XML?
-level your own classes?
+Dungeons and small rooms
+Bufs, Debufs (modStat class?)
+States + Inmunity to states
