@@ -5,31 +5,31 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using PvEOnline.Logic.Units;
 using Microsoft.Xna.Framework.Graphics;
-using PvEOnline.Logic.Units.Classes;
+using PvEOnline.Logic.Dungeon;
 
 namespace PvEOnline.Screens
 {
     public class GameScreen: BaseScreen
     {
-        UnitManager uManager;
+        Dungeon dung; //Still searching for that Super-sized Dung.
         public GameScreen(Game1 game)
             : base(game)
         {
         }
         public override void Initialize()
         {
-            uManager = new UnitManager(gameRef);
-            uManager.Add(new PClass("Paladin", "TankHealDps"));
+            dung = new Dungeon("Test",gameRef);
+            dung.newMap("Test");
             base.Initialize();
         }
         public override void Update(GameTime gameTime)
         {
-            uManager.Update(gameTime);
+            dung.Update(gameTime);
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
-            uManager.Draw(gameTime);
+            dung.Draw(gameTime,gameRef.spriteBatch);
             base.Draw(gameTime);
         }
     }

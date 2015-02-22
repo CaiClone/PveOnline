@@ -9,9 +9,11 @@ namespace PvEOnline.Logic.Units.Classes
 {
     class PClass : Unit
     {
+        public PClass(String filename) : this(filename, filename) { }
         public PClass(String filename, String name)
         {
-            loadStats(filename);
+            this.filename = filename;
+            folder = "Classes/";
             this.name = name;
         }
         public override void Update(GameTime gameTime)

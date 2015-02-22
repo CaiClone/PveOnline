@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="DataTypes.StatsData">
+    <hp>1</hp>
+    <resource>1</resource>
+    <Atk>1</Atk>
+    <magic>1</magic>
+    <pDef>1</pDef>
+    <mDef>1</mDef>
+    <critRatio>0</critRatio>
+    <haste>0</haste>
+    <atkRange>0</atkRange>
+    <moveSpeed>0</moveSpeed>
+    <ai>None</ai>
+    <sprite>Error</sprite>
+    <race>Error</race>
+  </Asset>
+</XnaContent>

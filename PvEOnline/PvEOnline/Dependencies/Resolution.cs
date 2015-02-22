@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace PvEOnline.Screens
+namespace PvEOnline.Dependencies
 {
     public static class Resolution
     {

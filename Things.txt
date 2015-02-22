@@ -3,3 +3,38 @@ Dungeons and small rooms
 Bufs, Debufs (modStat class?)
 States + Inmunity to states
 race? Human?
+Remove save file if it doesn't exist
+
+Optimitzations that can be done:
+	render all the tiles into a texture and only draw it when changed (only works if the tiles don't change much)
+	Omit foreground if it doesn't exist
+
+
+healer class:
+	Charge based
+	each heal gives you 1 charge
+	3 charge regen mana
+	You can store vials-> 1 stack = 3charge
+Mage like class:
+	Mana Well click to restore (everyone)
+Necromancer:
+	Can steal mana from friends
+	mastered the art of refining mana into huge fireballs
+Guardian:
+	!anchor howl
+	!stone skin
+Berserker:
+
+Rogue:
+
+Summoner:
+	Defensive pet(reduces damage in area)
+	Offensive zerg Rush
+	Support
+	etc...
+	One at a time or with CD's
+
+Mandatory guy with a bow:
+
+Bosses ideas
+	Hot potato
