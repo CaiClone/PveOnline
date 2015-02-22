@@ -1,0 +1,2 @@
+Load dungeons config from XML?
+level your own classes?
