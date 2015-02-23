@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using PvEOnline.Dependencies;
 using PvEOnline.Screens;
+using PvEOnline.Logic;
 
 namespace PvEOnline
 {
@@ -30,13 +31,15 @@ namespace PvEOnline
         {
             settings = Settings.loadSettings();
             Resolution.Init(ref graphics);
-            Resolution.SetVirtualResolution(1920, 1280);
+            Resolution.SetVirtualResolution(CONST.VRESOLUTIONX, CONST.VRESOLUTIONY);
             Resolution.SetResolution((int)settings.resolution.X, (int)settings.resolution.Y,settings.fullscreen);
             this.IsMouseVisible = true;
 
             screenManager = new ScreenManager(this);
             Components.Add(screenManager);
             screenManager.PushScreen(new GameScreen(this));
+            Components.Add(new InputHandler(this));
+            Components.Add(new TimerHandler(this));
             base.Initialize();
         }
 
@@ -56,10 +59,10 @@ namespace PvEOnline
 
             base.Update(gameTime);
         }
-
+         
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Resolution.getTransformationMatrix());
             base.Draw(gameTime);
             spriteBatch.End();

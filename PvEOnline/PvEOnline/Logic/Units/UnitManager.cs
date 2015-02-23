@@ -9,6 +9,7 @@ namespace PvEOnline.Logic.Units
     public class UnitManager
     {
         List<Unit> units;
+        
         Game1 gameRef;
         public UnitManager(Game1 game)
         {
@@ -29,6 +30,16 @@ namespace PvEOnline.Logic.Units
         {
             foreach (Unit u in units)
                 u.Draw(gameTime,gameRef.spriteBatch);
+        }
+
+        public void Select(Vector2 point)
+        {
+
+        }
+
+        public void SelectRect(Rectangle rectangle)
+        {
+
         }
     }
 }

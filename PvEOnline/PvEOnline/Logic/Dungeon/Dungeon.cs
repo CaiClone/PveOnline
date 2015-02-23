@@ -14,10 +14,14 @@ namespace PvEOnline.Logic.Dungeon
 
     public class Dungeon
     {
-        UnitManager uManager;
-        string name;
-        Map map;
-        Game1 gameRef;
+        private UnitManager uManager;
+        private string name;
+        private Map map;
+        private Game1 gameRef;
+
+        private Vector2 selS;
+        private Texture2D selTex;
+        private float selTS;
         public Dungeon(String name,Game1 game)
         {
             this.name=name;
@@ -25,6 +29,7 @@ namespace PvEOnline.Logic.Dungeon
 
             uManager = new UnitManager(gameRef);
             uManager.Add(new PClass("Paladin", "TankHealDps"));
+            selTex = gameRef.Content.Load<Texture2D>(@"GUI/Selection");
         }
         public void newMap(string name)
         {
@@ -33,12 +38,32 @@ namespace PvEOnline.Logic.Dungeon
         }
         public void Update(GameTime gameTime)
         {
+            HandleControls(gameTime);
+            uManager.Update(gameTime);
             map.Update(gameTime);
         }
         public void Draw(GameTime gameTime,SpriteBatch sp)
         {
-            uManager.Draw(gameTime);
             map.DrawBackground(sp);
+            if (InputHandler.LeftMouseDown() && TimerHandler.CheckTimer("ClickSelectBox")) 
+                sp.Draw(selTex, calcRectangle(selS, InputHandler.MousePosition()), Color.White);
+            uManager.Draw(gameTime);
+        }
+        private void HandleControls(GameTime gameTime)
+        {
+            if (InputHandler.LeftMousePressed())
+            {
+                selS = InputHandler.MousePosition();
+                TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
+            }
+            if (InputHandler.LeftMouseReleased())
+                if (TimerHandler.CheckTimer("ClickSelectBox",true))
+                    uManager.SelectRect(calcRectangle(selS, InputHandler.MousePosition()));
+                else uManager.Select(selS);
+        }
+        private Rectangle calcRectangle(Vector2 start, Vector2 end)
+        {
+            return new Rectangle((int)Math.Min(start.X, end.X), (int)Math.Min(start.Y, end.Y), (int)Math.Abs(end.X - start.X), (int)Math.Abs(end.Y - start.Y));
         }
     }
 }

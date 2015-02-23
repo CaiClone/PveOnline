@@ -4,11 +4,15 @@ Bufs, Debufs (modStat class?)
 States + Inmunity to states
 race? Human?
 Remove save file if it doesn't exist
+Show range
 
 Optimitzations that can be done:
 	render all the tiles into a texture and only draw it when changed (only works if the tiles don't change much)
 	Omit foreground if it doesn't exist
 
+
+start with:
+Healer/ Guardian / Berserker/ Bowman/ Witch / Poison guy
 
 healer class:
 	Charge based
@@ -17,15 +21,18 @@ healer class:
 	You can store vials-> 1 stack = 3charge
 Mage like class:
 	Mana Well click to restore (everyone)
-Necromancer:
+Witch:
 	Can steal mana from friends
 	mastered the art of refining mana into huge fireballs
 Guardian:
 	!anchor howl
 	!stone skin
 Berserker:
+	I don't need any fancy defense
+	I don't need more than 1hp either
 
-Rogue:
+Stealthy dps:
+	Autopilot
 
 Summoner:
 	Defensive pet(reduces damage in area)
@@ -35,6 +42,12 @@ Summoner:
 	One at a time or with CD's
 
 Mandatory guy with a bow:
-
+Poison guy:
+	Change poison waiting for charges
+	Poison timer
+	More than 2 vials gives more cd
 Bosses ideas
 	Hot potato
+	Huge Stats:
+		Enrage
+		
