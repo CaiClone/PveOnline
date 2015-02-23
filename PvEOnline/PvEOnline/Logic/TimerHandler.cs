@@ -43,5 +43,10 @@ namespace PvEOnline.Logic
             }
             base.Update(gameTime);
         }
+
+        public static void RemoveTimer(string name)
+        {
+            currentTimers.Remove(name);
+        }
     }
 }

@@ -15,10 +15,11 @@ namespace PvEOnline.Logic.Units.Classes
             this.filename = filename;
             folder = "Classes/";
             this.name = name;
+            usable = true;
         }
         public override void Update(GameTime gameTime)
         {
-            //Do nothing
+            base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime, SpriteBatch sp)
         {

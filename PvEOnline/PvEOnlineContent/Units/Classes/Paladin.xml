@@ -10,7 +10,7 @@
     <critRatio>0</critRatio>
     <haste>0</haste>
     <atkRange>0</atkRange>
-    <moveSpeed>0</moveSpeed>
+    <moveSpeed>1</moveSpeed>
     <ai>None</ai>
     <sprite>Error</sprite>
     <race>Error</race>

@@ -25,6 +25,7 @@ namespace PvEOnline
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            SerializeHelper.SerializeExampleMapInfo();
         }
 
         protected override void Initialize()

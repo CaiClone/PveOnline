@@ -45,6 +45,20 @@ namespace PvEOnline
         {
             return mouseState.LeftButton == ButtonState.Pressed;
         }
+        public static bool RightMousePressed()
+        {
+            return mouseState.RightButton == ButtonState.Pressed && lmouseState.RightButton == ButtonState.Released;
+        }
+
+        public static bool RightMouseReleased()
+        {
+            return mouseState.RightButton == ButtonState.Released && lmouseState.RightButton == ButtonState.Pressed;
+        }
+
+        public static bool RightMouseDown()
+        {
+            return mouseState.RightButton == ButtonState.Pressed;
+        }
 
         public static Vector2 MousePosition()
         {

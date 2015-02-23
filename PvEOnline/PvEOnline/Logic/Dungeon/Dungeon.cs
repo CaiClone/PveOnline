@@ -29,6 +29,7 @@ namespace PvEOnline.Logic.Dungeon
 
             uManager = new UnitManager(gameRef);
             uManager.Add(new PClass("Paladin", "TankHealDps"));
+            uManager.Add(new PClass("Paladin", "BestHeal"));
             selTex = gameRef.Content.Load<Texture2D>(@"GUI/Selection");
         }
         public void newMap(string name)
@@ -45,9 +46,9 @@ namespace PvEOnline.Logic.Dungeon
         public void Draw(GameTime gameTime,SpriteBatch sp)
         {
             map.DrawBackground(sp);
+            uManager.Draw(gameTime);
             if (InputHandler.LeftMouseDown() && TimerHandler.CheckTimer("ClickSelectBox")) 
                 sp.Draw(selTex, calcRectangle(selS, InputHandler.MousePosition()), Color.White);
-            uManager.Draw(gameTime);
         }
         private void HandleControls(GameTime gameTime)
         {
@@ -56,10 +57,16 @@ namespace PvEOnline.Logic.Dungeon
                 selS = InputHandler.MousePosition();
                 TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
             }
-            if (InputHandler.LeftMouseReleased())
-                if (TimerHandler.CheckTimer("ClickSelectBox",true))
+            else if (InputHandler.LeftMouseReleased())
+                if (TimerHandler.CheckTimer("ClickSelectBox", true))
                     uManager.SelectRect(calcRectangle(selS, InputHandler.MousePosition()));
-                else uManager.Select(selS);
+                else
+                {
+                    TimerHandler.RemoveTimer("ClickSelectBox");
+                    uManager.Select(selS);
+                }
+            else if (InputHandler.RightMousePressed())
+                uManager.OrderMove(InputHandler.MousePosition());
         }
         private Rectangle calcRectangle(Vector2 start, Vector2 end)
         {
