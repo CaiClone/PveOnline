@@ -38,7 +38,7 @@ namespace PvEOnline
 
             screenManager = new ScreenManager(this);
             Components.Add(screenManager);
-            screenManager.PushScreen(new GameScreen(this));
+            screenManager.PushScreen(new NetScreen(this));
             Components.Add(new InputHandler(this));
             Components.Add(new TimerHandler(this));
             base.Initialize();

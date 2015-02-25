@@ -1,10 +1,22 @@
-Load dungeons config from Tiled?
-Dungeons and small rooms
 Bufs, Debufs (modStat class?)
 States + Inmunity to states
 race? Human?
-Remove save file if it doesn't exist
 Show range
+needs formation
+Write a debug mode that shows timers
+How much can I avoid making a client server?
+	give multiple seeds and use the largest one of all
+isn't it easier to just define a server that the others listen to?
+
+Net packets
+	Orders
+only with client-serv
+	status boss
+	status character
+	each character attack?
+only with p2p
+	Seeds, a lot of them
+
 
 Optimitzations that can be done:
 	render all the tiles into a texture and only draw it when changed (only works if the tiles don't change much)
@@ -21,6 +33,8 @@ healer class:
 	You can store vials-> 1 stack = 3charge
 Mage like class:
 	Mana Well click to restore (everyone)
+	Electric link
+	Mix Elements()
 Witch:
 	Can steal mana from friends
 	mastered the art of refining mana into huge fireballs
@@ -50,4 +64,5 @@ Bosses ideas
 	Hot potato
 	Huge Stats:
 		Enrage
+	Laberynth
 		

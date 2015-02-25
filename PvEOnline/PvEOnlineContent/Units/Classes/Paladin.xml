@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
   <Asset Type="DataTypes.StatsData">
-    <hp>1</hp>
-    <resource>1</resource>
-    <Atk>1</Atk>
+    <maxhp>1</maxhp>
+    <maxresource>1</maxresource>
+    <atk>1</atk>
     <magic>1</magic>
     <pDef>1</pDef>
     <mDef>1</mDef>

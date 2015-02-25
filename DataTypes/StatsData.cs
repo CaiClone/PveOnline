@@ -8,10 +8,10 @@ namespace DataTypes
 {
     public class StatsData
     {
-        public int hp = 1;
+        public int maxhp = 1;
         [ContentSerializer(Optional = true)]
-        public int resource = 1;
-        public int Atk = 1;
+        public int maxresource = 1;
+        public int atk = 1;
         [ContentSerializer(Optional = true)]
         public int magic = 1;
         public int pDef = 1;
