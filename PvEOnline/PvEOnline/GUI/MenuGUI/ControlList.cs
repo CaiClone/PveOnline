@@ -42,5 +42,9 @@ namespace PvEOnline.GUI.MenuGUI
             foreach (Control c in controls)
                 c.HandleInput();
         }
+        public void Clear()
+        {
+            controls.Clear();
+        }
     }
 }

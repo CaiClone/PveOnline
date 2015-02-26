@@ -96,6 +96,8 @@
     <Compile Include="Logic\Units\Classes\PClass.cs" />
     <Compile Include="Logic\Units\Unit.cs" />
     <Compile Include="Logic\Units\UnitManager.cs" />
+    <Compile Include="NetManager.cs" />
+    <Compile Include="PRIVATECONST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

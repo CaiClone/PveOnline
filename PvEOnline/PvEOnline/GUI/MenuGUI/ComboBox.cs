@@ -64,5 +64,9 @@ namespace PvEOnline.GUI.MenuGUI
                 cList.Update(gameTime);
             current.Update(gameTime);
         }
+        public string getCurrent()
+        {
+            return current.text;
+        }
     }
 }

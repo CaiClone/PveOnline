@@ -65,4 +65,47 @@ Bosses ideas
 	Huge Stats:
 		Enrage
 	Laberynth
+
+boss5:
+5 bosses start
+
+solo baja de 75% el verdadero
+verdad quieto, los otros van a las esquinas
+
+4 con bajo dano
+
+al 10% vida verdad
+otras inmune a dano y taunts vienen a la verdadera
+
+Amenazas:
+	Miedo: dano aoe en rango, 
+		Dano a tank con splash
+		Skillshot casteado (OS)
+	Terror:
+		Area cada segundo se hace mas grande
+		En realidad es un muneco controlado por un priest (fear)
+	Panico:
+		Marca que hace que se tengan que separar
+			(link delgado que se agranda como mas cerca, y hace mas dano como mas cerca)
+		Switch tanks
+	Pesadilla:
+		Cada pocos segundos reset amenaza(target a healer)
+		el target no recibe heals;
+	Golosina:
+		High Damage meelee
+		Stun que neccesitas help
+		Chicle en la cabeza
+		Salta de persona a persona
+Falsas habilidades:
+	Miedo:
+		Skillshot still con menos dano
+	Panico:
+		Marca que va a caer un meteorito
+	Terror:
+		Area no crece pero es permanente
+	pesadilla:
+		reduce heal
+	Golosina:
+		te la quitas rapido te cura
+		
 		
