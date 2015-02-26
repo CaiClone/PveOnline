@@ -14,7 +14,7 @@ namespace PvEOnline
         public static int TILESIZEY = 64;
         public static int MAPSIZEX = 30;
         public static int MAPSIZEY = 17;
-        public static uint CLICKTIME = 80;
+        public static uint CLICKTIME = 60;
         public static int BASESPEED = 160;
 
         public static int RECTSELSIZE = 100; //Extra size when selecting by clicking

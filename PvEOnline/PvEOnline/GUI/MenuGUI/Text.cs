@@ -9,7 +9,7 @@ namespace PvEOnline.GUI.MenuGUI
 {
     public class Text:Control
     {
-        private string text;
+        public string text;
         private Color color;
         public Text(string text, Vector2 pos, Color color)
         {
@@ -26,6 +26,10 @@ namespace PvEOnline.GUI.MenuGUI
         }
         public override void Update(GameTime gameTime)
         {
+        }
+        public override Vector2 getSize()
+        {
+            return ControlManager.spriteFont.MeasureString(text);
         }
     }
 }

@@ -83,11 +83,6 @@
     <Compile Include="AIs\AI.cs" />
     <Compile Include="AIs\Bosses\Elemental.cs" />
     <Compile Include="CONST.cs" />
-    <Compile Include="Dependencies\Glide\Approach.cs" />
-    <Compile Include="Dependencies\Glide\Ease.cs" />
-    <Compile Include="Dependencies\Glide\GlideInfo.cs" />
-    <Compile Include="Dependencies\Glide\Tween.cs" />
-    <Compile Include="Dependencies\Glide\Tweener.cs" />
     <Compile Include="GUI\MenuGUI\Button.cs" />
     <Compile Include="GUI\MenuGUI\ControlList.cs" />
     <Compile Include="GUI\MenuGUI\ComboBox.cs" />

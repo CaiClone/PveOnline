@@ -13,7 +13,7 @@ namespace PvEOnline.GUI.MenuGUI
         private Color overColor;
         private Color selectedColor;
         private Color color;
-        private string text;
+        public string text;
         private Vector2 size;
         private bool stick=true;
         private bool selected;
@@ -30,7 +30,7 @@ namespace PvEOnline.GUI.MenuGUI
             this.overColor = overcolor;
             setText(text);
             color = normalColor;
-
+            selectedColor = selected;
         }
         private void setText(string text)
         {
@@ -42,7 +42,7 @@ namespace PvEOnline.GUI.MenuGUI
         {
             selected = stick;
             color = selected ? selectedColor : normalColor;
-            if(!selected) base.OnSelected(null);
+            base.OnSelected(null);
         }
         private void handleOver(bool state)
         {
@@ -53,7 +53,8 @@ namespace PvEOnline.GUI.MenuGUI
             if (overButton(InputHandler.MousePosition()))
             {
                 handleOver(true);
-                if (InputHandler.LeftMouseReleased()) handleSelected();
+                if (InputHandler.LeftMouseReleased()) 
+                    handleSelected();
             }
             else
             {
@@ -70,6 +71,10 @@ namespace PvEOnline.GUI.MenuGUI
         private bool overButton(Vector2 mousepos)
         {
             return (new Rectangle((int)pos.X, (int)pos.Y, (int)size.X, (int)size.Y)).Contains((int)mousepos.X, (int)mousepos.Y);
+        }
+        public override Vector2 getSize()
+        {
+            return size;
         }
     }
 }

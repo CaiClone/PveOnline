@@ -14,6 +14,7 @@ namespace PvEOnline.GUI.MenuGUI
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch spriteBatch);
         public abstract void HandleInput();
+        public abstract Vector2 getSize();
 
         public Vector2 pos;
         public bool enabled=true;
