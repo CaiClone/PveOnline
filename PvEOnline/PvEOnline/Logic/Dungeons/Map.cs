@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using DataTypes;
 
-namespace PvEOnline.Logic.Dungeon
+namespace PvEOnline.Logic.Dungeons
 {
     public class Map
     {

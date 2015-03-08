@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using PvEOnline.Logic.Units;
 using PvEOnline.Logic.Units.Classes;
+using PvEOnline.Net;
 
-namespace PvEOnline.Logic.Dungeon
+namespace PvEOnline.Logic.Dungeons
 {
 
     public class Dungeon
@@ -22,14 +23,17 @@ namespace PvEOnline.Logic.Dungeon
         private Vector2 selS;
         private Texture2D selTex;
         private float selTS;
-        public Dungeon(String name,Game1 game)
+        private NetManagerT net;
+        public Dungeon(String name,Game1 game,NetManagerT netManager,int seed)
         {
             this.name=name;
             gameRef = game;
+            net = netManager;
 
-            uManager = new UnitManager(gameRef);
+            uManager = new UnitManager(gameRef,netManager,this,seed);
             uManager.Add(new PClass("Paladin", "TankHealDps"));
-            uManager.Add(new PClass("Paladin", "BestHeal"));
+            uManager.Add(new PClass("Paladin", "BestHeal",100,100));
+            uManager.Add(new Boss("Elemental"));
             selTex = gameRef.Content.Load<Texture2D>(@"GUI/Selection");
         }
         public void newMap(string name)

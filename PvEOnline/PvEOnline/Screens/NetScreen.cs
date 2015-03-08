@@ -6,6 +6,7 @@ using PvEOnline.GUI.MenuGUI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ExitGames.Client.Photon.LoadBalancing;
+using PvEOnline.Net;
 
 namespace PvEOnline.Screens
 {
@@ -45,7 +46,7 @@ namespace PvEOnline.Screens
             //createB.enabled = false;
 
             //net 
-            net.Start();
+            net.Start(gameRef);
             base.Initialize();
         }
         public override void Update(GameTime gameTime)
@@ -62,10 +63,13 @@ namespace PvEOnline.Screens
         private void MenuSelected(object sender, EventArgs e)
         {
             if (sender == backB)
-                gameRef.screenManager.PushScreen(new GameScreen(gameRef));
+                gameRef.screenManager.PushScreen(new GameScreen(gameRef,0));
             //gameRef.screenManager.PopScreen();
             else if (sender == createB)
-                net.newRoom(combo.getCurrent(),gameRef.settings.playerName,5);
+            {
+                net.newRoom(combo.getCurrent(), gameRef.settings.playerName, 5);
+                gameRef.screenManager.PushScreen(new RoomScreen(gameRef, net));
+            }
             else if (sender == refreshB)
                 refreshRoomList();
         }
@@ -76,7 +80,7 @@ namespace PvEOnline.Screens
             if (rooms.Count>0)
             {
                 foreach (var kvp in rooms){
-                    Button b = new Button((kvp.Key+"        "+kvp.Value.PlayerCount+"/"+kvp.Value.MaxPlayers), Vector2.Zero, Color.Turquoise, Color.Teal);
+                    Button b = new Button((kvp.Key+"/            "+kvp.Value.PlayerCount+"/"+kvp.Value.MaxPlayers), Vector2.Zero, Color.Turquoise, Color.Teal);
                     b.Selected += joinRoom;
                     roomL.Add(b);
                 }
@@ -84,11 +88,14 @@ namespace PvEOnline.Screens
         }
         private void joinRoom(object sender, EventArgs e)
         {
-            Console.WriteLine(sender);
+            //can be broken by strange names, TODO restrict names
+            if (sender is Button)
+                if (net.OpJoinRoom(((Button)sender).text.Split('/')[0]))
+                    gameRef.screenManager.PushScreen(new RoomScreen(gameRef,net));
         }
         private List<string> loadDungeonNames()
         {
-            return new List<string>(new string[] { "Boss1", "Boss2", "Boss3 Larger" }); //Shut up don't judge me, I'm lazy, I'll do it later
+            return new List<string>(new string[] { "MazoWarr", "Boss2", "Boss3 Larger" }); //Shut up don't judge me, I'm lazy, I'll do it later
         }
     }
 }

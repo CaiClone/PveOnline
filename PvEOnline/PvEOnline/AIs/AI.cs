@@ -2,22 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PvEOnline.Logic.Units;
+using PvEOnline.Logic.Dungeons;
 
 namespace PvEOnline.AIs
 {
     public abstract class AI
     {
+        protected Unit unit;
+        protected Dungeon dun;
+        protected UnitManager uMan;
+        protected Random rnd;
+        public AI(Unit u, Dungeon d, UnitManager uM, int seed)
+        {
+            unit = u;
+            dun = d;
+            uMan = uM;
+            rnd = new Random(seed);
+        }
         protected int PickAction(List<int> probs, Random rnd)
         {
             int totalWeight = probs.Sum();
             int weightedPick = rnd.Next(totalWeight);
-            foreach (var item in probs)
+            foreach (int item in probs)
+            for(int i=0;i<probs.Count;i++)
             {
-                if (weightedPick < item)
-                {
-                    return item;
-                }
-                weightedPick -= item;
+                if (weightedPick < probs[i])
+                    return i;
+                weightedPick -= probs[i];
             }
             throw new InvalidOperationException("List must have changed...");
         }
@@ -43,6 +55,7 @@ namespace PvEOnline.AIs
                 arr[i] = t;
             }
         }
+        public abstract void Update();
     }
     public enum Elements
     {

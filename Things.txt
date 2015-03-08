@@ -21,6 +21,7 @@ only with p2p
 Optimitzations that can be done:
 	render all the tiles into a texture and only draw it when changed (only works if the tiles don't change much)
 	Omit foreground if it doesn't exist
+	Stop sending names
 
 
 start with:

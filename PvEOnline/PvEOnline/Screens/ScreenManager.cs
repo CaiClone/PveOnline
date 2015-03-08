@@ -16,6 +16,8 @@ namespace PvEOnline.Screens
         }
         public void PushScreen(BaseScreen s)
         {
+            if (screens.Count > 0)
+                Game.Components.Remove(screens.Peek());
             screens.Push(s);
             Game.Components.Add(s);
         }

@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PvEOnline.AIs;
 
-namespace PvEOnline.Logic.Units.Classes
+namespace PvEOnline.Logic.Units
 {
-    class PClass : Unit
+    public class Boss :Unit
     {
-        public PClass(String filename) : this(filename, filename) { }
-        public PClass(String filename, String name)
+        public Boss(String filename) : this(filename, filename) { }
+        public Boss(String filename, String name)
         {
             this.filename = filename;
-            folder = "Classes";
+            folder = "Bosses";
             this.name = name;
             usable = true;
         }
-        public PClass(string filename, string name, int x, int y) : this (filename, name)
+        public Boss(string filename, string name, int x, int y)
+            : this(filename, name)
         {
             pos = new Vector2(x, y);
         }

@@ -23,7 +23,14 @@ namespace PvEOnline.Logic
         /// <param name="Name"></param>
         /// <param name="ms"></param>
         public static void AddTimer(string Name, uint ms){
-            currentTimers.Add(Name, time + (uint)(ms/10));
+            try
+            {
+                currentTimers.Add(Name, time + (uint)(ms / 10));
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Timer",Name,"Already initialized");
+            }
         }
         public static bool CheckTimer(string Name, bool remove=false)
         {

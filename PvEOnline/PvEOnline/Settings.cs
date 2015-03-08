@@ -18,7 +18,7 @@ namespace PvEOnline
         {
             resolution = new Vector2(1280, 720);
             fullscreen = false;
-            playerName = "Faggot";
+            playerName = "Faggot"; 
         }
         public static Settings loadSettings()
         {

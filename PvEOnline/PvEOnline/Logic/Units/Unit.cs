@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DataTypes;
-
+using PvEOnline.Logic.Dungeons;
 namespace PvEOnline.Logic.Units
 {
 
@@ -19,24 +19,32 @@ namespace PvEOnline.Logic.Units
         public StatsData cStats;
         public Vector2 pos;
         private Vector2 dest;
-        protected string name;
+        public string name;
+        protected AI ai;
         protected string folder;
         protected string filename;
         public bool usable;
         protected int owner;
         protected Texture2D sprite;
         protected State state;
-        public int hp { get {return hp;} }
+        private int health;
+        public int hp { get { return health; } }
 
         public void LoadContent(ContentManager cont)
         {
-            pstats = cont.Load<StatsData>(@"Units/" + folder + filename);
-            sprite = cont.Load<Texture2D>(@"Sprites/" +folder+ pstats.sprite);
+            pstats = cont.Load<StatsData>(@"Units/" + folder+"/"+ filename);
+            sprite = cont.Load<Texture2D>(@"Sprites/" + folder + "/" + pstats.sprite);
+            cStats = new StatsData();
         }
         public void setDest(Vector2 dest)
         {
             this.dest = dest;
             state = State.Moving;
+        }
+        public void loadAi(Dungeon d, UnitManager uM, int seed)
+        {
+            Type t = Type.GetType("PvEOnline.AIs." + folder + "." + pstats.ai);
+            ai = (AI)Activator.CreateInstance(t,this,d,uM,seed);
         }
         private Rectangle getRectangle()
         {
@@ -44,6 +52,7 @@ namespace PvEOnline.Logic.Units
         }
         public virtual void Update(GameTime gameTime)
         {
+            ai.Update();
             switch(state)
             {
                 case State.Moving:

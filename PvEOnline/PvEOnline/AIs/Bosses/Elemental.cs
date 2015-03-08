@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PvEOnline.Logic.Dungeon;
+using PvEOnline.Logic.Dungeons;
 using PvEOnline.Logic.Units;
 using Microsoft.Xna.Framework;
 using PvEOnline.Logic;
@@ -12,37 +12,27 @@ namespace PvEOnline.AIs.Bosses
     public class Elemental : AI
     {
         private Vector2[] sprays; //N,E,S,W
-        private Unit unit;
-        private Dungeon dun;
-        private UnitManager uMan;
-        private int seed;
-        //private EleStates estate;
-        private Random rnd;
-        public Elemental(Unit u, Dungeon d, UnitManager uM, int seed)
+        private EleStates estate;
+        public Elemental(Unit u, Dungeon d, UnitManager uM, int seed) :base(u,d,uM,seed)
         {
             //getSprays();
-            unit = u;
-            dun = d;
-            uMan = uM;
-            TimerHandler.AddTimer("Elemental", 10);
-            rnd = new Random(seed);
+            TimerHandler.AddTimer(unit.name, 100);
         }
-        /*
-        private void getSprays()
+        /*private void getSprays()
         {
             string dir ="NESW";
             for (int i = 0; i < 4; i++)
                 sprays[i] = dun.MapSpecial.getSpecial("Spray" + dir[i]);
-        }
-        private void Update()
+        }*/
+        public override void Update()
         {
             //base enrage on the boss 
-            if (TimerHandler.CheckTimer("Elemental",true))
+            if (TimerHandler.CheckTimer(unit.name, true))
             {
                 List<Action> actions = new List<Action>();
                 List<int> probs = new List<int>();
                 actions.Add(MeleeAttack);
-                probs.Add(5);
+                probs.Add(8);
                 switch (estate)
                 {
                     case EleStates.Clear:
@@ -63,32 +53,39 @@ namespace PvEOnline.AIs.Bosses
                     case EleStates.Dark:
                         break;
                 }
+                actions[PickAction(probs, rnd)]();
             }
         }
         private void MeleeAttack()
         {
+            Console.WriteLine("Meelee");
+            TimerHandler.AddTimer(unit.name, 600);
         }
         private void ChangeElem()
         {
-            changeSprays();
+            Console.WriteLine("changeElem");
+            unit.setDest(new Vector2(1000,1000));
+            TimerHandler.AddTimer(unit.name, 5000);
+            //changeSprays();
         }
         private void ChangeTarget()
         {
             //aggro from uMan.getHealer(); UP
-            TimerHandler.AddTimer("ElementalA",5000);
+            Console.WriteLine("ChangeTargeT");
+            TimerHandler.AddTimer(unit.name, 5000);
         }
         private void SpellIce()
         {
 
         }
-        private void changeSprays()
+        /*private void changeSprays()
         {
             int[] order = {0,1,2,3};
             Elements[] eles = {Elements.Fire,Elements.Water,Elements.Dark,Elements.Light};
             Shuffle<int>(order,rnd);
             for(int i=0;i<order.Length;i++)
                 dun.MapSpecial.ActivateSpray(sprays[order[i]], eles[i]);
-        }
+        }*/
     }
     enum EleStates
     {
@@ -97,6 +94,5 @@ namespace PvEOnline.AIs.Bosses
         Ice,
         Light,
         Dark
-    }*/
     }
 }

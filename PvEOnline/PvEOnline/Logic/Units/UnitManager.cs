@@ -4,26 +4,39 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PvEOnline.Net;
+using System.Collections;
+using PvEOnline.Logic.Dungeons;
 
 namespace PvEOnline.Logic.Units
 {
     public class UnitManager
     {
-        List<Unit> units;
-        List<Unit> selected;
+        private List<Unit> units;
+        private List<Unit> selected;
         
-        Game1 gameRef;
-        Texture2D selUnitTex;
-        public UnitManager(Game1 game)
+        private Game1 gameRef;
+        private Texture2D selUnitTex;
+        private NetManagerT net;
+        private Dungeon dung;
+        private Random rnd;
+        private Boolean online;
+        public UnitManager(Game1 game, NetManagerT netManager,Dungeon dungeon, int seed)
         {
+            rnd = new Random(seed);
             units = new List<Unit>();
             selected = new List<Unit>();
             gameRef = game;
+            net = netManager;
+            online = (net != null);
+            dung = dungeon;
+            if(online) netManager.setUnitManager(this);
             selUnitTex = game.Content.Load<Texture2D>(@"GUI/SelUnit");
         }
         public void Add(Unit u)
         {
             u.LoadContent(gameRef.Content);
+            u.loadAi(dung, this, rnd.Next());
             units.Add(u);
         }
         public void Update(GameTime gameTime)
@@ -70,8 +83,27 @@ namespace PvEOnline.Logic.Units
         }
         public void OrderMove(Vector2 dest)
         {
+            if(online) net.SendOrder(selected,dest);
             foreach(Unit u in selected)
                 u.setDest(dest);
+        }
+
+        public Unit getUnit(string name)
+        {
+            foreach (Unit u in units)
+                if (u.name == name)
+                    return u;
+            return null;
+        }
+        public void NetOrderMove(Hashtable p)
+        {
+            foreach (DictionaryEntry kv in p)
+                getUnit((string)kv.Key).setDest(intToVector2((int[])kv.Value));
+            
+        }
+        public Vector2 intToVector2(int[] arr)
+        {
+            return new Vector2(arr[0],arr[1]);
         }
     }
 }
