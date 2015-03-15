@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using PvEOnline.Net;
 using System.Collections;
 using PvEOnline.Logic.Dungeons;
+using Microsoft.Xna.Framework.Input;
+using PvEOnline.Skills;
 
 namespace PvEOnline.Logic.Units
 {
@@ -15,7 +17,7 @@ namespace PvEOnline.Logic.Units
         private List<Unit> units;
         private List<Unit> selected;
         
-        private Game1 gameRef;
+        public Game1 gameRef;
         private Texture2D selUnitTex;
         private NetManagerT net;
         private Dungeon dung;
@@ -104,6 +106,25 @@ namespace PvEOnline.Logic.Units
         public Vector2 intToVector2(int[] arr)
         {
             return new Vector2(arr[0],arr[1]);
+        }
+
+        public bool canUseSkills()
+        {
+            return selected.Count == 1; //may want to add the ability to use a skill if everyone has it but it dosn't seem terribly useful with only one char from each class
+        }
+
+        public int getSelectedSkillNum()
+        {
+            return selected[0].getSkillNum();
+        }
+
+        public void orderSkill(int skillnum)
+        {
+            selected[0].skillStart(skillnum);
+        }
+        public List<Skill> getSkills()
+        {
+            return selected[0].getSkills();
         }
     }
 }

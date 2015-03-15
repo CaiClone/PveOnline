@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using PvEOnline.Logic.Units;
 using PvEOnline.Logic.Dungeons;
+using Microsoft.Xna.Framework.Input;
+using PvEOnline.Skills;
+using Microsoft.Xna.Framework.Content;
 
 namespace PvEOnline.AIs
 {
@@ -13,12 +16,14 @@ namespace PvEOnline.AIs
         protected Dungeon dun;
         protected UnitManager uMan;
         protected Random rnd;
+        protected List<Skill> skills;
         public AI(Unit u, Dungeon d, UnitManager uM, int seed)
         {
             unit = u;
             dun = d;
             uMan = uM;
             rnd = new Random(seed);
+            skills = new List<Skill>();
         }
         protected int PickAction(List<int> probs, Random rnd)
         {
@@ -56,6 +61,28 @@ namespace PvEOnline.AIs
             }
         }
         public abstract void Update();
+
+        public int getSkillNum()
+        {
+            return skills.Count;
+        }
+
+        public void skillStart(int skillnum)
+        {
+            skills[skillnum].Start();
+        }
+        public List<Skill> getSkills()
+        {
+            return skills;
+        }
+
+        public void loadSkillIcons(ContentManager cont, string folder)
+        {
+            foreach(Skill s in skills)
+            {
+                s.loadIcon(cont,folder);
+            }
+        }
     }
     public enum Elements
     {

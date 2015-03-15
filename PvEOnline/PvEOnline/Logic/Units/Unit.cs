@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DataTypes;
 using PvEOnline.Logic.Dungeons;
+using Microsoft.Xna.Framework.Input;
+using PvEOnline.Skills;
 namespace PvEOnline.Logic.Units
 {
 
@@ -41,7 +43,7 @@ namespace PvEOnline.Logic.Units
             this.dest = dest;
             state = State.Moving;
         }
-        public void loadAi(Dungeon d, UnitManager uM, int seed)
+        public virtual void loadAi(Dungeon d, UnitManager uM, int seed)
         {
             Type t = Type.GetType("PvEOnline.AIs." + folder + "." + pstats.ai);
             ai = (AI)Activator.CreateInstance(t,this,d,uM,seed);
@@ -68,6 +70,19 @@ namespace PvEOnline.Logic.Units
             }
         }
         public abstract void Draw(GameTime gameTime, SpriteBatch sp);
+        public int getSkillNum()
+        { 
+            return ai.getSkillNum(); 
+        }
+
+        public void skillStart(int skillnum)
+        {
+            ai.skillStart(skillnum);
+        }
+        public List<Skill> getSkills()
+        {
+            return ai.getSkills();
+        }
     }
     public enum State
     {

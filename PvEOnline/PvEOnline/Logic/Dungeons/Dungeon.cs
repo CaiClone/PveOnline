@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework;
 using PvEOnline.Logic.Units;
 using PvEOnline.Logic.Units.Classes;
 using PvEOnline.Net;
+using Microsoft.Xna.Framework.Input;
+using PvEOnline.GUI;
 
 namespace PvEOnline.Logic.Dungeons
 {
@@ -23,7 +25,9 @@ namespace PvEOnline.Logic.Dungeons
         private Vector2 selS;
         private Texture2D selTex;
         private float selTS;
+        private SpriteFont spf;
         private NetManagerT net;
+        private GameUI gui;
         public Dungeon(String name,Game1 game,NetManagerT netManager,int seed)
         {
             this.name=name;
@@ -31,10 +35,13 @@ namespace PvEOnline.Logic.Dungeons
             net = netManager;
 
             uManager = new UnitManager(gameRef,netManager,this,seed);
-            uManager.Add(new PClass("Paladin", "TankHealDps"));
-            uManager.Add(new PClass("Paladin", "BestHeal",100,100));
+            uManager.Add(new PClass("Guardian", "TankHealDps"));
+            uManager.Add(new PClass("Guardian", "BestTank",100,100));
             uManager.Add(new Boss("Elemental"));
             selTex = gameRef.Content.Load<Texture2D>(@"GUI/Selection");
+            spf = gameRef.Content.Load<SpriteFont>(@"Font/MenuFont");
+            gui = new GameUI();
+            gui.Load(gameRef.Content, gameRef.settings.skillKeys);
         }
         public void newMap(string name)
         {
@@ -51,26 +58,36 @@ namespace PvEOnline.Logic.Dungeons
         {
             map.DrawBackground(sp);
             uManager.Draw(gameTime);
-            if (InputHandler.LeftMouseDown() && TimerHandler.CheckTimer("ClickSelectBox")) 
+            if (InputHandler.LeftMouseDown() && TimerHandler.CheckTimer("ClickSelectBox",false))
                 sp.Draw(selTex, calcRectangle(selS, InputHandler.MousePosition()), Color.White);
+            if (uManager.canUseSkills())
+                gui.drawSkills(uManager.getSkills(),sp);
         }
         private void HandleControls(GameTime gameTime)
         {
-            if (InputHandler.LeftMousePressed())
+
+            if (InputHandler.LeftMouseReleased())
             {
-                selS = InputHandler.MousePosition();
-                TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
-            }
-            else if (InputHandler.LeftMouseReleased())
-                if (TimerHandler.CheckTimer("ClickSelectBox", true))
+                if (TimerHandler.CheckTimer("ClickSelectBox"))
                     uManager.SelectRect(calcRectangle(selS, InputHandler.MousePosition()));
                 else
                 {
                     TimerHandler.RemoveTimer("ClickSelectBox");
-                    uManager.Select(selS);
+                    uManager.Select(InputHandler.MousePosition());
                 }
+            }
+            else if (InputHandler.LeftMousePressed())
+            {
+                selS = InputHandler.MousePosition();
+                TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
+            }
             else if (InputHandler.RightMousePressed())
                 uManager.OrderMove(InputHandler.MousePosition());
+            if (uManager.canUseSkills())
+                for (int i = 0; i < uManager.getSelectedSkillNum();i++)
+                    if (InputHandler.KeyPressed(gameRef.settings.skillKeys[i]))
+                        uManager.orderSkill(i);
+
         }
         private Rectangle calcRectangle(Vector2 start, Vector2 end)
         {

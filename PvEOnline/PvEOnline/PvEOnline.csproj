@@ -98,12 +98,14 @@
     <Compile Include="AIs\Classes\Guardian.cs" />
     <Compile Include="AIs\None.cs" />
     <Compile Include="CONST.cs" />
+    <Compile Include="GUI\GameUI.cs" />
     <Compile Include="GUI\MenuGUI\Button.cs" />
     <Compile Include="GUI\MenuGUI\ControlList.cs" />
     <Compile Include="GUI\MenuGUI\ComboBox.cs" />
     <Compile Include="GUI\MenuGUI\Control.cs" />
     <Compile Include="GUI\MenuGUI\ControlManager.cs" />
     <Compile Include="GUI\MenuGUI\Text.cs" />
+    <Compile Include="GUI\MsgHelper.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Logic\Dungeons\Dungeon.cs" />
     <Compile Include="Logic\Dungeons\Map.cs" />
@@ -126,6 +128,8 @@
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Skills\Guardian\EqualizingPunch.cs" />
+    <Compile Include="Skills\Skill.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

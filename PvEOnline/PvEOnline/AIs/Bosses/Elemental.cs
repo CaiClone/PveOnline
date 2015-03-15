@@ -27,7 +27,7 @@ namespace PvEOnline.AIs.Bosses
         public override void Update()
         {
             //base enrage on the boss 
-            if (TimerHandler.CheckTimer(unit.name, true))
+            if (TimerHandler.CheckTimer(unit.name))
             {
                 List<Action> actions = new List<Action>();
                 List<int> probs = new List<int>();

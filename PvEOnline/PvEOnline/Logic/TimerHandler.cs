@@ -32,7 +32,7 @@ namespace PvEOnline.Logic
                 Console.WriteLine("Timer",Name,"Already initialized");
             }
         }
-        public static bool CheckTimer(string Name, bool remove=false)
+        public static bool CheckTimer(string Name, bool remove=true)
         {
             uint dTime;
             bool res= currentTimers.TryGetValue(Name, out dTime) && dTime < time;

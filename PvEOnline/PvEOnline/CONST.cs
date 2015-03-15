@@ -14,9 +14,22 @@ namespace PvEOnline
         public static int TILESIZEY = 64;
         public static int MAPSIZEX = 30;
         public static int MAPSIZEY = 17;
-        public static uint CLICKTIME = 60;
+        public static uint CLICKTIME = 80;
         public static int BASESPEED = 160;
 
         public static int RECTSELSIZE = 100; //Extra size when selecting by clicking
+        public static Color[] COLORS = new Color[] //JIBUUUUUn WOOOOOOOOOOOOOOOOOOOOOO
+                                       {   Color.Black,         //Default
+                                           Color.Red,           //Phys attack
+                                           Color.Purple,        //Magic attack
+                                           Color.LightBlue,     //Self buffs
+                                           Color.DarkRed,       //Phys Damage Notations
+                                           Color.DarkViolet,    //Magic Damage Notations [5]
+                                           Color.LimeGreen,     //Heals
+                                           Color.Aquamarine     //AI text
+                                       };
+
+        public static int ICONSIZE = 128;
+        public static int PADDING = 20;
     }
 }

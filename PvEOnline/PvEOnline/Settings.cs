@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Xml.Serialization;
+using Microsoft.Xna.Framework.Input;
 
 namespace PvEOnline
 {
@@ -14,11 +15,13 @@ namespace PvEOnline
         public Vector2 resolution { get; set; }
         public bool fullscreen { get; set; }
         public string playerName;
+        public Keys[] skillKeys;
         public Settings()
         {
             resolution = new Vector2(1280, 720);
             fullscreen = false;
             playerName = "Faggot"; 
+            skillKeys = new Keys[] {Keys.Q, Keys.W,Keys.E,Keys.A,Keys.S,Keys.D,Keys.Z,Keys.X,Keys.C};
         }
         public static Settings loadSettings()
         {

@@ -15,7 +15,7 @@ namespace PvEOnline.Logic.Units
             this.filename = filename;
             folder = "Bosses";
             this.name = name;
-            usable = true;
+            usable = false;
         }
         public Boss(string filename, string name, int x, int y)
             : this(filename, name)

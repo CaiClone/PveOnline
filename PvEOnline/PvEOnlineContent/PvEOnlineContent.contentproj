@@ -48,8 +48,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Units\Classes\Paladin.xml">
-      <Name>Paladin</Name>
+    <Compile Include="Units\Classes\Guardian.xml">
+      <Name>Guardian</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>
@@ -102,6 +102,13 @@
   <ItemGroup>
     <Compile Include="Sprites\Bosses\Error.png">
       <Name>Error</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GUI\Icons\Classes\Equalizing Punch.png">
+      <Name>Equalizing Punch</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
