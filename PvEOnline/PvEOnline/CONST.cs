@@ -26,10 +26,12 @@ namespace PvEOnline
                                            Color.DarkRed,       //Phys Damage Notations
                                            Color.DarkViolet,    //Magic Damage Notations [5]
                                            Color.LimeGreen,     //Heals
-                                           Color.Aquamarine     //AI text
+                                           Color.Aquamarine,    //AI text
+                                           Color.Yellow,        //Time
                                        };
 
         public static int ICONSIZE = 128;
         public static int PADDING = 20;
+        public static int MAXNSKILLS = 9;
     }
 }

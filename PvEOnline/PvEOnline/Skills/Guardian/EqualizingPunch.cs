@@ -8,11 +8,9 @@ namespace PvEOnline.Skills.Guardian
 {
     public class EqualizingPunch :Skill
     {
-        private PClass caster;
         private int damage;
-        public EqualizingPunch(PClass caster)
+        public EqualizingPunch(PClass caster) : base(caster)
         {
-            this.caster = caster;
             CD = 5000;
             range = 100;
             name = "Equalizing Punch";
@@ -20,7 +18,7 @@ namespace PvEOnline.Skills.Guardian
         }
         public override void Start()
         {
-            Console.Beep();
+            startCD();
         }
     }
 }

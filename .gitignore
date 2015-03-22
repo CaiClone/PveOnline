@@ -202,7 +202,7 @@ FakesAssemblies/
 *.psd
 
 # Thumbs.db
-Thumbs.db
+*.db
 
 # Private vars
 PvEOnline/PvEOnline/PRIVATECONST.cs

@@ -12,6 +12,7 @@ using DataTypes;
 using PvEOnline.Logic.Dungeons;
 using Microsoft.Xna.Framework.Input;
 using PvEOnline.Skills;
+using PvEOnline.Logic.Units.Buffs;
 namespace PvEOnline.Logic.Units
 {
 
@@ -30,10 +31,14 @@ namespace PvEOnline.Logic.Units
         protected Texture2D sprite;
         protected State state;
         private int health;
+
+        protected List<Buff> buffs;
+
         public int hp { get { return health; } }
 
         public void LoadContent(ContentManager cont)
         {
+            buffs = new List<Buff>();
             pstats = cont.Load<StatsData>(@"Units/" + folder+"/"+ filename);
             sprite = cont.Load<Texture2D>(@"Sprites/" + folder + "/" + pstats.sprite);
             cStats = new StatsData();
@@ -48,13 +53,15 @@ namespace PvEOnline.Logic.Units
             Type t = Type.GetType("PvEOnline.AIs." + folder + "." + pstats.ai);
             ai = (AI)Activator.CreateInstance(t,this,d,uM,seed);
         }
-        private Rectangle getRectangle()
+        public Rectangle getRectangle()
         {
             return new Rectangle((int)pos.X, (int)pos.Y, (int)sprite.Width, (int)sprite.Height);
         }
         public virtual void Update(GameTime gameTime)
         {
             ai.Update();
+            foreach (Buff b in buffs)
+                b.Update();
             switch(state)
             {
                 case State.Moving:
@@ -68,6 +75,15 @@ namespace PvEOnline.Logic.Units
                     else state = State.Idle;
                     break;
             }
+        }
+        public virtual void Apply(Buff b)
+        {
+            buffs.Add(b);
+            b.Apply(this);
+        }
+        public virtual void Remove(Buff b)
+        {
+            buffs.Remove(b);
         }
         public abstract void Draw(GameTime gameTime, SpriteBatch sp);
         public int getSkillNum()

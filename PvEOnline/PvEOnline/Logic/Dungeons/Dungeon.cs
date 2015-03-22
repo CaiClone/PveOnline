@@ -11,6 +11,7 @@ using PvEOnline.Logic.Units.Classes;
 using PvEOnline.Net;
 using Microsoft.Xna.Framework.Input;
 using PvEOnline.GUI;
+using PvEOnline.Skills;
 
 namespace PvEOnline.Logic.Dungeons
 {
@@ -28,6 +29,7 @@ namespace PvEOnline.Logic.Dungeons
         private SpriteFont spf;
         private NetManagerT net;
         private GameUI gui;
+        private bool falseClick=false;
         public Dungeon(String name,Game1 game,NetManagerT netManager,int seed)
         {
             this.name=name;
@@ -60,33 +62,56 @@ namespace PvEOnline.Logic.Dungeons
             uManager.Draw(gameTime);
             if (InputHandler.LeftMouseDown() && TimerHandler.CheckTimer("ClickSelectBox",false))
                 sp.Draw(selTex, calcRectangle(selS, InputHandler.MousePosition()), Color.White);
-            if (uManager.canUseSkills())
-                gui.drawSkills(uManager.getSkills(),sp);
+            if (uManager.canUseSkills()){
+                List<Skill> s = uManager.getSkills();
+                gui.drawSkills(s,sp);
+                gui.hoverSkills(s, InputHandler.MousePosition(), sp);
+            }
         }
         private void HandleControls(GameTime gameTime)
         {
 
             if (InputHandler.LeftMouseReleased())
             {
-                if (TimerHandler.CheckTimer("ClickSelectBox"))
-                    uManager.SelectRect(calcRectangle(selS, InputHandler.MousePosition()));
+                if (falseClick)
+                    falseClick = false;
                 else
                 {
-                    TimerHandler.RemoveTimer("ClickSelectBox");
-                    uManager.Select(InputHandler.MousePosition());
+                    if (TimerHandler.CheckTimer("ClickSelectBox"))
+                        uManager.SelectRect(calcRectangle(selS, InputHandler.MousePosition()));
+                    else
+                    {
+                        TimerHandler.RemoveTimer("ClickSelectBox");
+                        uManager.Select(InputHandler.MousePosition());
+                    }
                 }
             }
             else if (InputHandler.LeftMousePressed())
             {
-                selS = InputHandler.MousePosition();
-                TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
+                Vector2 mousepos = InputHandler.MousePosition();
+                if(uManager.canUseSkills()){
+                    int usedSkill = gui.clickedSkill(mousepos,uManager.getSelectedSkillNum()); //TODO fix overhead right here
+                    if (usedSkill > -1)
+                    {
+                        uManager.orderSkill(usedSkill);
+                        falseClick = true;
+                    }
+                }
+                if(!falseClick)
+                {
+                    selS = mousepos;
+                    TimerHandler.AddTimer("ClickSelectBox", CONST.CLICKTIME);
+                }
             }
             else if (InputHandler.RightMousePressed())
                 uManager.OrderMove(InputHandler.MousePosition());
             if (uManager.canUseSkills())
-                for (int i = 0; i < uManager.getSelectedSkillNum();i++)
-                    if (InputHandler.KeyPressed(gameRef.settings.skillKeys[i]))
+            {
+                int nskills = uManager.getSelectedSkillNum();
+                for (int i = 0; i < nskills; i++)
+                    if (InputHandler.KeyPressed(gameRef.settings.skillKeys[nskills-i-1]))
                         uManager.orderSkill(i);
+            }
 
         }
         private Rectangle calcRectangle(Vector2 start, Vector2 end)

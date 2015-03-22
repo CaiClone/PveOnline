@@ -111,6 +111,7 @@
     <Compile Include="Logic\Dungeons\Map.cs" />
     <Compile Include="Logic\TimerHandler.cs" />
     <Compile Include="Logic\Units\Boss.cs" />
+    <Compile Include="Logic\Units\Buffs\Buff.cs" />
     <Compile Include="Logic\Units\Classes\PClass.cs" />
     <Compile Include="Logic\Units\Unit.cs" />
     <Compile Include="Logic\Units\UnitManager.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Skills\Guardian\EqualizingPunch.cs" />
+    <Compile Include="Skills\Guardian\HeartOfStone.cs" />
     <Compile Include="Skills\Skill.cs" />
   </ItemGroup>
   <ItemGroup>

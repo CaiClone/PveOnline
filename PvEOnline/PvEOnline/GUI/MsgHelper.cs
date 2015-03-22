@@ -9,21 +9,27 @@ namespace PvEOnline.GUI
 {
     public static class MsgHelper
     {
-        public static void DrawPrettyText(string txt, SpriteBatch spf, SpriteFont font, Vector2 pos,int maxX)
+        public static void DrawPrettyText(Message msg, SpriteBatch sp,SpriteFont spf, Vector2 pos)
         {
-            Vector2 cpos = pos;
+            for (int i = 0; i < msg.lines.Count; i++)
+                sp.DrawString(spf, msg.lines[i], pos + msg.pos[i], msg.colors[i]);
+        }
+        public static Message CalcPrettyText(string txt, SpriteFont font, int maxX)
+        {
+            Vector2 cpos = Vector2.Zero;
             Color ccol = CONST.COLORS[0];
-            float maxY = font.MeasureString(txt.Substring(0,1)).Y;
-            String buf = "";
-            String word = "";
-            for(int i=0;i<txt.Length;i++)
+            float sizeY = font.MeasureString(txt.Substring(0, 1)).Y;
+            string buf = "";
+            string word = "";
+            Message msg = new Message();
+            for (int i = 0; i < txt.Length; i++)
             {
                 if (txt[i] == ' ')
                 {
-                    if (cpos.X-pos.X + font.MeasureString(buf + word).X > maxX)
+                    if (cpos.X + font.MeasureString(buf + word).X > maxX)
                     {
-                        cpos = drawText(buf, spf, font, cpos, ccol);
-                        cpos = new Vector2(pos.X, cpos.Y + maxY);
+                        msg.Add(buf, ccol, cpos);
+                        cpos = new Vector2(0, cpos.Y + sizeY);
                         buf = "";
                     }
                     buf += word + txt[i];
@@ -36,13 +42,14 @@ namespace PvEOnline.GUI
                     switch (txt[i + 1])
                     {
                         case 'n':
-                            cpos = drawText(buf, spf, font, cpos, ccol);
+                            msg.Add(buf, ccol, cpos);
                             buf = "";
-                            cpos = new Vector2(pos.X, cpos.Y + maxY);
+                            cpos = new Vector2(0, cpos.Y + sizeY);
                             i += 2;
                             break;
                         case 'c':
-                            cpos = drawText(buf, spf, font, cpos, ccol);
+                            msg.Add(buf, ccol, cpos);
+                            cpos.X += font.MeasureString(buf).X;
                             buf = "";
                             ccol = CONST.COLORS[(int)Char.GetNumericValue(txt[i + 2])];
                             i += 2;
@@ -51,26 +58,48 @@ namespace PvEOnline.GUI
                 }
                 else if (txt[i] == '>')
                 {
+                    if (cpos.X + font.MeasureString(buf + word).X > maxX)
+                    {
+                        msg.Add(buf, ccol, cpos);
+                        cpos = new Vector2(0, cpos.Y + sizeY);
+                        buf = "";
+                    }
                     buf += word;
                     word = "";
-                    cpos = drawText(buf, spf, font, cpos, ccol);
+                    msg.Add(buf, ccol, cpos);
+                    cpos.X += font.MeasureString(buf).X;
                     buf = "";
                     ccol = CONST.COLORS[0];
                 }
                 else word += txt[i];
             }
-            if (cpos.X - pos.X + font.MeasureString(buf + word).X > maxX)
+            if (cpos.X + font.MeasureString(buf + word).X > maxX)
             {
-                cpos = drawText(buf, spf, font, cpos, ccol);
-                cpos = new Vector2(pos.X, cpos.Y + maxY);
+                msg.Add(buf, ccol, cpos);
+                cpos = new Vector2(0, cpos.Y + sizeY);
                 buf = "";
-            }
-            drawText(buf+word, spf, font, cpos, ccol);
-        }
-        private static Vector2 drawText(string txt, SpriteBatch spf, SpriteFont font, Vector2 pos, Color col)
-        {
-            spf.DrawString(font, txt, pos, col);
-            return pos + new Vector2(font.MeasureString(txt).X, 0);
+            } 
+            msg.Add(buf, ccol, cpos);
+            return msg;
         }
     }
+}
+public class Message
+{
+    public Message()
+    {
+        lines = new List<string>();
+        colors = new List<Color>();
+        pos = new List<Vector2>();
+    }
+    public void Add(String s, Color c, Vector2 displ)
+    {
+        lines.Add(s);
+        colors.Add(c);
+        pos.Add(displ);
+    }
+    public List<string> lines;
+    public List<Color> colors;
+    public List<Vector2> pos;
+    public float sizeY;
 }

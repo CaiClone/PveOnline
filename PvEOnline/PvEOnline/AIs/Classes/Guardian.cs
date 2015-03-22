@@ -14,7 +14,7 @@ namespace PvEOnline.AIs.Classes
         public Guardian(Unit u, Dungeon d, UnitManager uM, int seed)
             : base(u, d, uM, seed)
         {
-            skills.Add(new EqualizingPunch((PClass)u));
+            skills.Add(new HeartOfStone((PClass)u));
             skills.Add(new EqualizingPunch((PClass)u));
         }
         public override void Update()

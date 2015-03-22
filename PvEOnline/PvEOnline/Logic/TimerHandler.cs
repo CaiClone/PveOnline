@@ -55,5 +55,13 @@ namespace PvEOnline.Logic
         {
             currentTimers.Remove(name);
         }
+
+        public static int getTimeLeft(string cdName)
+        {
+            uint dTime;
+            if(currentTimers.TryGetValue(cdName,out dTime))
+                return (int)(dTime - time)*10;
+            return 99999999;
+        }
     }
 }
