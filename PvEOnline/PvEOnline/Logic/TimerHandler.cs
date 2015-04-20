@@ -29,7 +29,8 @@ namespace PvEOnline.Logic
             }
             catch (ArgumentException e)
             {
-                Console.WriteLine("Timer",Name,"Already initialized");
+                currentTimers[Name]=Math.Max(time+(uint)(ms/10),currentTimers[Name]);
+                Console.WriteLine("Timer"+Name+"Already initialized");
             }
         }
         public static bool CheckTimer(string Name, bool remove=true)
@@ -61,7 +62,12 @@ namespace PvEOnline.Logic
             uint dTime;
             if(currentTimers.TryGetValue(cdName,out dTime))
                 return (int)(dTime - time)*10;
-            return 99999999;
+            return 919191919;
+        }
+
+        public static bool hasTimer(string name)
+        {
+            return currentTimers.ContainsKey(name);
         }
     }
 }

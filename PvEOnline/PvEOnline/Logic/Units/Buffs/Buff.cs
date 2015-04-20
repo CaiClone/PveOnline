@@ -7,14 +7,20 @@ namespace PvEOnline.Logic.Units.Buffs
 {
     public abstract class Buff
     {
-        protected string name;
+        public string name;
         protected uint time;
         protected Unit carrier;
-        public  Buff(Unit u){
+        public void setCarrier(Unit u){
             carrier=u;
-            name = u.name + name;
+            name = u.name + "b_"+name;
         }
-        public virtual void Apply(Unit u)
+        public void Apply()
+        {
+            if (!TimerHandler.hasTimer(name))
+                ApplyEffects();
+            TimerHandler.AddTimer(name, time);
+        }
+        public void ApplyCD() //can be called to set cd without applying other effects in sons
         {
             TimerHandler.AddTimer(name, time);
         }
@@ -28,5 +34,6 @@ namespace PvEOnline.Logic.Units.Buffs
         {
             carrier.Remove(this);
         }
+        public abstract void ApplyEffects();
     }
 }

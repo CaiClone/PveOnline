@@ -20,16 +20,16 @@ namespace PvEOnline.Logic.Dungeons
     {
         private UnitManager uManager;
         private string name;
-        private Map map;
+        public Map map;
         private Game1 gameRef;
 
         private Vector2 selS;
         private Texture2D selTex;
-        private float selTS;
-        private SpriteFont spf;
+        public SpriteFont spf;
         private NetManagerT net;
         private GameUI gui;
         private bool falseClick=false;
+
         public Dungeon(String name,Game1 game,NetManagerT netManager,int seed)
         {
             this.name=name;
@@ -39,7 +39,7 @@ namespace PvEOnline.Logic.Dungeons
             uManager = new UnitManager(gameRef,netManager,this,seed);
             uManager.Add(new PClass("Guardian", "TankHealDps"));
             uManager.Add(new PClass("Guardian", "BestTank",100,100));
-            uManager.Add(new Boss("Elemental"));
+            uManager.Add(new Boss("Elemental","Elemental",500,500));
             selTex = gameRef.Content.Load<Texture2D>(@"GUI/Selection");
             spf = gameRef.Content.Load<SpriteFont>(@"Font/MenuFont");
             gui = new GameUI();

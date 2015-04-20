@@ -201,8 +201,8 @@ FakesAssemblies/
 # Photoshop files
 *.psd
 
-# Thumbs.db
-*.db
+# Thumbs.db duh
+Thumbs.db
 
 # Private vars
 PvEOnline/PvEOnline/PRIVATECONST.cs

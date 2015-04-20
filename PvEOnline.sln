@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PvEOnline", "PvEOnline\PvEO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PvEOnlineContent", "PvEOnline\PvEOnlineContent\PvEOnlineContent.contentproj", "{CC9EC06E-A139-4436-ADE4-E83F0A58FA3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faggotrylib", "..\Faggotrylib\Faggotrylib.csproj", "{1F4C8A0B-E716-4A6E-99FC-13CA9D0078C4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\DataTypes.csproj", "{2DA73B45-C627-4A3D-889F-9C1326BE9B1F}"
 EndProject
 Global
@@ -21,10 +19,6 @@ Global
 		{C8E4854A-756E-48B3-BD23-60077D73DF86}.Release|x86.Build.0 = Release|x86
 		{CC9EC06E-A139-4436-ADE4-E83F0A58FA3B}.Debug|x86.ActiveCfg = Debug|x86
 		{CC9EC06E-A139-4436-ADE4-E83F0A58FA3B}.Release|x86.ActiveCfg = Release|x86
-		{1F4C8A0B-E716-4A6E-99FC-13CA9D0078C4}.Debug|x86.ActiveCfg = Debug|x86
-		{1F4C8A0B-E716-4A6E-99FC-13CA9D0078C4}.Debug|x86.Build.0 = Debug|x86
-		{1F4C8A0B-E716-4A6E-99FC-13CA9D0078C4}.Release|x86.ActiveCfg = Release|x86
-		{1F4C8A0B-E716-4A6E-99FC-13CA9D0078C4}.Release|x86.Build.0 = Release|x86
 		{2DA73B45-C627-4A3D-889F-9C1326BE9B1F}.Debug|x86.ActiveCfg = Debug|x86
 		{2DA73B45-C627-4A3D-889F-9C1326BE9B1F}.Debug|x86.Build.0 = Debug|x86
 		{2DA73B45-C627-4A3D-889F-9C1326BE9B1F}.Release|x86.ActiveCfg = Release|x86

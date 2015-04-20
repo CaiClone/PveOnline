@@ -25,11 +25,14 @@ namespace PvEOnline
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            SerializeHelper.SerializeExampleMapInfo();
+            // We turn on anti aliasing, because aliasing on lines (especially on thin lines) is very visible.
+            graphics.PreferMultiSampling = true;
+            graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
+            SpriteBatchEx.GraphicsDevice = GraphicsDevice;
             settings = Settings.loadSettings();
             Resolution.Init(ref graphics);
             Resolution.SetVirtualResolution(CONST.VRESOLUTIONX, CONST.VRESOLUTIONY);

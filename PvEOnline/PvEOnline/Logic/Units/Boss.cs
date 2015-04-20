@@ -26,9 +26,5 @@ namespace PvEOnline.Logic.Units
         {
             base.Update(gameTime);
         }
-        public override void Draw(GameTime gameTime, SpriteBatch sp)
-        {
-            sp.Draw(this.sprite, pos, Color.White);
-        }
     }
 }

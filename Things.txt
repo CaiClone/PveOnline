@@ -1,9 +1,9 @@
 Bufs, Debufs (modStat class?)
 States + Inmunity to states
 race? Human?
-Show range
 needs formation
 Write a debug mode that shows timers
+Show unit target when selected
 How much can I avoid making a client server?
 	give multiple seeds and use the largest one of all
 isn't it easier to just define a server that the others listen to?

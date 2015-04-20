@@ -21,9 +21,9 @@ namespace PvEOnline.Logic.Units
         protected StatsData pstats;
         public StatsData cStats;
         public Vector2 pos;
-        private Vector2 dest;
+        public List<Color> colors =  new List<Color>() {Color.White};
         public string name;
-        protected AI ai;
+        public AI ai;
         protected string folder;
         protected string filename;
         public bool usable;
@@ -31,7 +31,8 @@ namespace PvEOnline.Logic.Units
         protected Texture2D sprite;
         protected State state;
         private int health;
-
+        public int[] unitFlags= new int[(int)UFlags.max];
+        public Unit Target { get; set; }
         protected List<Buff> buffs;
 
         public int hp { get { return health; } }
@@ -45,7 +46,7 @@ namespace PvEOnline.Logic.Units
         }
         public void setDest(Vector2 dest)
         {
-            this.dest = dest;
+            ai.setDest(dest);
             state = State.Moving;
         }
         public virtual void loadAi(Dungeon d, UnitManager uM, int seed)
@@ -60,32 +61,43 @@ namespace PvEOnline.Logic.Units
         public virtual void Update(GameTime gameTime)
         {
             ai.Update();
-            foreach (Buff b in buffs)
-                b.Update();
+            for(int i=0;i<buffs.Count;i++)
+                buffs[i].Update();
             switch(state)
             {
                 case State.Moving:
-                    Rectangle rect =getRectangle();
-                    Vector2 direction = new Vector2(rect.Center.X,rect.Bottom-15)- dest;
-                    if (Math.Abs(direction.Length()) > 2f)
+                    if (!getFlag(UFlags.Stopped))
                     {
-                        direction.Normalize();
-                        pos -= (direction*CONST.BASESPEED) * pstats.moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        Vector2 dest = ai.getDest();
+                        Vector2 direction = pos - dest;
+                        Vector2 oldpos = pos;
+                        if (Math.Abs(direction.Length()) > 2f)
+                        {
+                            direction.Normalize();
+                            pos -= (direction * CONST.BASESPEED) * pstats.moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        }
+                        else
+                            if(!ai.NextDest())
+                                state = State.Idle;
                     }
-                    else state = State.Idle;
                     break;
             }
         }
         public virtual void Apply(Buff b)
         {
+            b.setCarrier(this);
             buffs.Add(b);
-            b.Apply(this);
+            b.Apply();
         }
         public virtual void Remove(Buff b)
         {
             buffs.Remove(b);
         }
-        public abstract void Draw(GameTime gameTime, SpriteBatch sp);
+        public virtual void Draw(GameTime gameTime, SpriteBatch sp)
+        {
+            ai.Draw(gameTime, sp);
+            sp.Draw(this.sprite, new Vector2(pos.X - sprite.Width / 2, pos.Y - sprite.Height +CONST.TILESIZEY/ 2), colors.Last());
+        }
         public int getSkillNum()
         { 
             return ai.getSkillNum(); 
@@ -99,10 +111,34 @@ namespace PvEOnline.Logic.Units
         {
             return ai.getSkills();
         }
+        private bool getFlag(UFlags u)
+        {
+            return unitFlags[(int)u]>0;
+        }
+        public void setFlag(UFlags u)
+        {
+            unitFlags[(int)u]++;
+        }
+        public void removeFlag(UFlags u)
+        {
+            unitFlags[(int)u]--;
+        }
+
+        public void clearRoute()
+        {
+            state = State.Idle;
+        }
     }
     public enum State
     {
         Idle,
         Moving
+    }
+    public enum UFlags
+    {
+        None,
+        Stopped, //can't move
+        Akagi,   //can't be damaged
+        max,     //Just to calc length
     }
 }

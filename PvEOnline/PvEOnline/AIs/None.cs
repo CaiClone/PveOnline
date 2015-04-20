@@ -16,5 +16,9 @@ namespace PvEOnline.AIs
         {
             //hey believe me this is the best strategy
         }
+        public override float getAutoattackRange()
+        {
+            return 0f; //I'm the best, just the best
+        }
     }
 }

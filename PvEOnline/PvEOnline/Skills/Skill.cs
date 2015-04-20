@@ -15,6 +15,7 @@ namespace PvEOnline.Skills
         public uint CD = 0;
         public int range = 0;
         public string info = "Forgot to add this skill info, blame the devs";
+        public String costDesc = "Forgot";
         public Texture2D icon;
         public abstract void Start();
         public bool ready = true;

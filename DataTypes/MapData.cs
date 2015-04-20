@@ -11,10 +11,10 @@ namespace DataTypes
     {
         public string tileset= "TileSetTest";
         public Vector2 tilesetSize = new Vector2(8,15);
-        public byte[] background = new byte[30 * 17];
+        public byte[] background = new byte[60 * 34];
         [ContentSerializer(Optional = true)]
-        public byte[] foreground = new byte[30 * 17];
-        public byte[] properties = new byte[30 * 17];
+        public byte[] foreground = new byte[60 * 34];
+        public byte[] properties = new byte[60 * 34];
         [ContentSerializer(Optional = true)]
         public List<SpecialEvent> special = new List<SpecialEvent>();
 

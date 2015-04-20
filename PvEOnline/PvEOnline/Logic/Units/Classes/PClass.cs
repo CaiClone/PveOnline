@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PvEOnline.AIs;
 using PvEOnline.Logic.Dungeons;
+using PvEOnline.Dependencies;
 
 namespace PvEOnline.Logic.Units.Classes
 {
@@ -34,7 +35,12 @@ namespace PvEOnline.Logic.Units.Classes
         }
         public override void Draw(GameTime gameTime, SpriteBatch sp)
         {
-            sp.Draw(this.sprite, pos, Color.White);
+            base.Draw(gameTime, sp);
+            if(state==State.Moving){
+                Color col = ai.getColor();
+                sp.DrawLine(pos, ai.getDest(), col, 2);
+                sp.DrawPolyLine(ai.getRoute().ToArray(), col, 2, false);
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Collections;
 using PvEOnline.Logic.Dungeons;
 using Microsoft.Xna.Framework.Input;
 using PvEOnline.Skills;
-
 namespace PvEOnline.Logic.Units
 {
     public class UnitManager
@@ -48,33 +47,48 @@ namespace PvEOnline.Logic.Units
         }
         public void Draw(GameTime gameTime)
         {
-            foreach (Unit u in selected)
-                drawSelection(u);
             foreach (Unit u in units)
-                u.Draw(gameTime, gameRef.spriteBatch);
-        }
-        private void drawSelection(Unit u)
-        {
-            gameRef.spriteBatch.Draw(selUnitTex, u.pos, Color.Lime);
-        }
-        public void Select(Vector2 point)
-        {
-            selected.Clear();
-            bool found=false;
-            int i = 0;
-            Rectangle rect = new Rectangle((int)point.X - CONST.RECTSELSIZE / 2, (int)point.Y - CONST.RECTSELSIZE / 2, CONST.RECTSELSIZE, CONST.RECTSELSIZE);
-            while (i<units.Count() && !found)
             {
-                if(units[i].usable)
-                    if (rect.Contains((int)units[i].pos.X + CONST.TILESIZEX / 2, (int)units[i].pos.Y + CONST.TILESIZEY / 2))
-                    {
-                        found = true;
-                        selected.Add(units[i]);
-                    }
-                i++;
+                //26 is the displacement of the sprite
+                if(selected.Contains(u))
+                    gameRef.spriteBatch.Draw(selUnitTex, new Vector2(u.pos.X - selUnitTex.Width / 2, u.pos.Y - selUnitTex.Height / 2 + CONST.TILESIZEY / 2-26), Color.GreenYellow);
+                else
+                    gameRef.spriteBatch.Draw(selUnitTex,new Vector2(u.pos.X - selUnitTex.Width / 2, u.pos.Y-selUnitTex.Height/2+CONST.TILESIZEY/2-26), (u.usable) ? Color.Green : Color.DarkSalmon);
+                u.Draw(gameTime, gameRef.spriteBatch);
+            }
+            foreach (Unit u in selected)
+            {
+                if (u.Target != null)
+                {
+                    gameRef.spriteBatch.Draw(selUnitTex, new Vector2(u.Target.pos.X - selUnitTex.Width / 2, u.Target.pos.Y - selUnitTex.Height / 2 + CONST.TILESIZEY / 2 - 26), Color.DarkRed);
+                }
             }
         }
 
+        public void Select(Vector2 point)
+        {
+            selected.Clear();
+            Unit found = getInSelectRect(point, true);
+            if(found!=null)
+                selected.Add(found);
+        }
+        public Unit getInSelectRect(Vector2 point, bool usable)
+        {
+            bool found = false;
+            int i = 0;
+            Rectangle rect = new Rectangle((int)point.X - CONST.RECTSELSIZE / 2, (int)point.Y - CONST.RECTSELSIZE / 2, CONST.RECTSELSIZE, CONST.RECTSELSIZE);
+            while (i < units.Count() && !found)
+            {
+                if (units[i].usable==usable)
+                    if (rect.Contains((int)units[i].pos.X + CONST.TILESIZEX / 2, (int)units[i].pos.Y + CONST.TILESIZEY / 2))
+                    {
+                        found = true;
+                        return units[i];
+                    }
+                i++;
+            }
+            return null;
+        }
         public void SelectRect(Rectangle rect)
         {
             selected.Clear();
@@ -85,9 +99,16 @@ namespace PvEOnline.Logic.Units
         }
         public void OrderMove(Vector2 dest)
         {
-            if(online) net.SendOrder(selected,dest);
-            foreach(Unit u in selected)
-                u.setDest(dest);
+            Unit found = getInSelectRect(dest, false);
+            if(found!=null){
+                //TODO ONLINE SET TARGET
+                foreach (Unit u in selected)
+                    u.Target = found;
+            }else{
+                if(online) net.SendOrder(selected,dest);
+                foreach(Unit u in selected)
+                    u.ai.orderMove(dest);
+            }
         }
 
         public Unit getUnit(string name)
@@ -100,7 +121,7 @@ namespace PvEOnline.Logic.Units
         public void NetOrderMove(Hashtable p)
         {
             foreach (DictionaryEntry kv in p)
-                getUnit((string)kv.Key).setDest(intToVector2((int[])kv.Value));
+                getUnit((string)kv.Key).ai.orderMove(intToVector2((int[])kv.Value));
             
         }
         public Vector2 intToVector2(int[] arr)

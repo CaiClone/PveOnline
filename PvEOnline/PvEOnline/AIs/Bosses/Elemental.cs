@@ -64,7 +64,7 @@ namespace PvEOnline.AIs.Bosses
         private void ChangeElem()
         {
             Console.WriteLine("changeElem");
-            unit.setDest(new Vector2(1000,1000));
+            unit.setDest(new Vector2(1000, 1000));
             TimerHandler.AddTimer(unit.name, 5000);
             //changeSprays();
         }
@@ -77,6 +77,10 @@ namespace PvEOnline.AIs.Bosses
         private void SpellIce()
         {
 
+        }
+        public override float getAutoattackRange()
+        {
+            return 40f;
         }
         /*private void changeSprays()
         {

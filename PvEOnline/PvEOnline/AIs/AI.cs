@@ -7,6 +7,8 @@ using PvEOnline.Logic.Dungeons;
 using Microsoft.Xna.Framework.Input;
 using PvEOnline.Skills;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PvEOnline.AIs
 {
@@ -17,6 +19,7 @@ namespace PvEOnline.AIs
         protected UnitManager uMan;
         protected Random rnd;
         protected List<Skill> skills;
+        protected Stack<Vector2> route;
         public AI(Unit u, Dungeon d, UnitManager uM, int seed)
         {
             unit = u;
@@ -24,6 +27,7 @@ namespace PvEOnline.AIs
             uMan = uM;
             rnd = new Random(seed);
             skills = new List<Skill>();
+            route = new Stack<Vector2>();
         }
         protected int PickAction(List<int> probs, Random rnd)
         {
@@ -48,6 +52,15 @@ namespace PvEOnline.AIs
                 list[p] = list[i];
                 list[i] = t;
             }
+        }
+        protected void behaviour_getInAutoattackRange()
+        {
+            if(unit.Target!=null)
+                if(distToTarget(unit.pos)>getAutoattackRange())
+                    unit.setDest(unit.Target.pos);
+                else
+                    unit.clearRoute();
+
         }
         protected void Shuffle<T>(T[] arr, Random rnd)
         {
@@ -82,6 +95,60 @@ namespace PvEOnline.AIs
             {
                 s.loadIcon(cont,folder);
             }
+        }
+
+        public void setDest(Vector2 dest)
+        {
+            if (dest.X > CONST.TILESIZEX && dest.Y > CONST.TILESIZEY)
+            {
+                route.Clear();
+                foreach (Vector2 vec in dun.map.getRoute(unit.pos, dest))
+                    route.Push(vec);
+                if (route.Count > 1)
+                    route.Pop(); //fuck yo start
+            }
+        }
+        public Vector2 getDest()
+        {
+            return route.Peek();
+        }
+        /* returns false if it doesn't have a next dest*/
+        public bool NextDest()
+        {
+            route.Pop();
+            return (route.Count != 0);
+        }
+        public Stack<Vector2> getRoute()
+        {
+            return route;
+        }
+        public virtual Color getColor()
+        {
+            return Color.LimeGreen;
+        }
+        public virtual void Draw(GameTime gameTime, SpriteBatch sp)
+        {
+            sp.DrawString(dun.spf, dun.map.toMapIndices(unit.pos).ToString(), unit.pos + new Vector2(20, 20), Color.White);
+        }
+        public float distToTarget(Vector2 point)
+        {
+            return (unit.Target.pos - point).Length();
+        }
+
+        public abstract float getAutoattackRange();
+        public void orderMove(Vector2 dest)
+        {
+            if (unit.Target!=null && distToTarget(dest)> getAutoattackRange())
+                unit.Target = null;
+            unit.setDest(dest);
+        }
+        public void leaveTile(Vector2 tilePos)
+        {
+            //dun.map.leaveTile(unit, tilePos);
+        }
+        public void enterTile(Vector2 tilePos)
+        {
+            //dun.map.enterTile(unit, tilePos);
         }
     }
     public enum Elements
