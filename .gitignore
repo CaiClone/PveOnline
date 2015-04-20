@@ -206,3 +206,6 @@ Thumbs.db
 
 # Private vars
 PvEOnline/PvEOnline/PRIVATECONST.cs
+
+# libs
+libs/*

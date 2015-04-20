@@ -71,7 +71,7 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -86,11 +86,13 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="mscorlib" />
-    <Reference Include="Photon3DotNet">
-      <HintPath>..\..\..\..\..\..\Desktop\Box\C# dll\Photon dotnet 4004\libs\Release\Photon3DotNet.dll</HintPath>
+    <Reference Include="Photon3DotNet, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Photon3DotNet.dll</HintPath>
     </Reference>
-    <Reference Include="PhotonLoadbalancingApi">
-      <HintPath>..\..\..\..\..\..\Desktop\Box\C# dll\Photon dotnet 4004\PhotonLoadbalancingApi\obj\Debug\PhotonLoadbalancingApi.dll</HintPath>
+    <Reference Include="PhotonLoadbalancingApi, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\PhotonLoadbalancingApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
