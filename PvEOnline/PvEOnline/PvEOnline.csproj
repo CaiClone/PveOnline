@@ -103,6 +103,8 @@
   <ItemGroup>
     <Compile Include="AIs\AI.cs" />
     <Compile Include="AIs\Bosses\Elemental.cs" />
+    <Compile Include="AIs\Classes\Berserker.cs" />
+    <Compile Include="AIs\Classes\DiplomaticImmunity.cs" />
     <Compile Include="AIs\Classes\Guardian.cs" />
     <Compile Include="AIs\None.cs" />
     <Compile Include="CONST.cs" />
@@ -141,6 +143,8 @@
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Skills\BerserkerSkills\DiplomaticImmunity.cs" />
+    <Compile Include="Skills\BerserkerSkills\Perseverance.cs" />
     <Compile Include="Skills\GuardianSkills\EqualizingPunch.cs" />
     <Compile Include="Skills\GuardianSkills\HeartOfStone.cs" />
     <Compile Include="Skills\Skill.cs" />
