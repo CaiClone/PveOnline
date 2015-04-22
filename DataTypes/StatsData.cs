@@ -8,14 +8,14 @@ namespace DataTypes
 {
     public class StatsData
     {
-        public int maxhp = 1;
+        public int maxhp = 0;
         [ContentSerializer(Optional = true)]
-        public int maxresource = 1;
-        public int atk = 1;
+        public int maxresource = 0;
+        public int atk = 0;
         [ContentSerializer(Optional = true)]
-        public int magic = 1;
-        public int pDef = 1;
-        public int mDef = 1;
+        public int magic = 0;
+        public int pDef = 0;
+        public int mDef = 0;
         public float critRatio = 0f;
         [ContentSerializer(Optional = true)]
         public float haste = 0f;

@@ -150,6 +150,10 @@ namespace PvEOnline.AIs
         {
             //dun.map.enterTile(unit, tilePos);
         }
+        public virtual void recieveDamage(ref int num, DamageType flags)
+        {
+
+        }
     }
     public enum Elements
     {

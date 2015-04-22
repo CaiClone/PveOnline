@@ -36,7 +36,7 @@ namespace PvEOnline.AIs.Bosses
                 switch (estate)
                 {
                     case EleStates.Clear:
-                        if (unit.hp < unit.cStats.maxhp * 0.8)
+                        if (unit.hp < unit.getMaxHP() * 0.8)
                         {
                             actions.Add(ChangeElem);
                             probs.Add(1);

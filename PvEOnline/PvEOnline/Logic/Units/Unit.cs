@@ -13,13 +13,14 @@ using PvEOnline.Logic.Dungeons;
 using Microsoft.Xna.Framework.Input;
 using PvEOnline.Skills;
 using PvEOnline.Logic.Units.Buffs;
+using PvEOnline.GUI;
 namespace PvEOnline.Logic.Units
 {
 
     public abstract class Unit
     {
         protected StatsData pstats;
-        public StatsData cStats;
+        public StatsData bonusStats;
         public Vector2 pos;
         public List<Color> colors =  new List<Color>() {Color.White};
         public string name;
@@ -42,7 +43,7 @@ namespace PvEOnline.Logic.Units
             buffs = new List<Buff>();
             pstats = cont.Load<StatsData>(@"Units/" + folder+"/"+ filename);
             sprite = cont.Load<Texture2D>(@"Sprites/" + folder + "/" + pstats.sprite);
-            cStats = new StatsData();
+            bonusStats = new StatsData();
         }
         public void setDest(Vector2 dest)
         {
@@ -128,6 +129,46 @@ namespace PvEOnline.Logic.Units
         {
             state = State.Idle;
         }
+
+        public Unit getTarget()
+        {
+            return Target;
+        }
+        private int getPDef()
+        {
+            return pstats.pDef + bonusStats.pDef;
+        }
+        private int getMDef()
+        {
+            return pstats.mDef + bonusStats.mDef;
+        }
+        private void applyArmor(ref int num, DamageType flags)
+        {
+            if (flags.HasFlag(DamageType.Physical)){
+                int armor = getPDef();
+                num -= (armor <= num) ? armor : 0;
+            }
+            if (flags.HasFlag(DamageType.Magical))
+            {
+                int armor = getMDef();
+                num -= (armor <= num) ? armor : 0;
+            }
+        }
+        public void DealDamage(int num,DamageType flags)
+        {
+            int real = num;
+            applyArmor(ref real,flags);
+
+            //inform AI maybe he wants something with it
+            ai.recieveDamage(ref real, flags);
+
+            EffectManager.AdddmgEffectDrawable(real, pos);
+            health -= real;
+        }
+        public int getMaxHP()
+        {
+            return pstats.maxhp + bonusStats.maxhp;
+        }
     }
     public enum State
     {
@@ -140,5 +181,10 @@ namespace PvEOnline.Logic.Units
         Stopped, //can't move
         Akagi,   //can't be damaged
         max,     //Just to calc length
+    }
+    public enum DamageType
+    {
+        Physical,
+        Magical,
     }
 }

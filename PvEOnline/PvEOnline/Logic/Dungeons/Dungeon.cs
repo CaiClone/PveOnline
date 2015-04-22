@@ -44,6 +44,7 @@ namespace PvEOnline.Logic.Dungeons
             spf = gameRef.Content.Load<SpriteFont>(@"Font/MenuFont");
             gui = new GameUI();
             gui.Load(gameRef.Content, gameRef.settings.skillKeys);
+            EffectManager.Damagespf = gameRef.Content.Load<SpriteFont>(@"Font/MenuFont");
         }
         public void newMap(string name)
         {
@@ -55,6 +56,7 @@ namespace PvEOnline.Logic.Dungeons
             HandleControls(gameTime);
             uManager.Update(gameTime);
             map.Update(gameTime);
+            EffectManager.Update(gameTime);
         }
         public void Draw(GameTime gameTime,SpriteBatch sp)
         {
@@ -67,6 +69,7 @@ namespace PvEOnline.Logic.Dungeons
                 gui.drawSkills(s,sp);
                 gui.hoverSkills(s, InputHandler.MousePosition(), sp);
             }
+            EffectManager.Draw(gameTime, sp);
         }
         private void HandleControls(GameTime gameTime)
         {

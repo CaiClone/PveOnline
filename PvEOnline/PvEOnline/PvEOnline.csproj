@@ -108,6 +108,7 @@
     <Compile Include="CONST.cs" />
     <Compile Include="Dependencies\PriorityQueue.cs" />
     <Compile Include="Dependencies\SpriteBatchEx.cs" />
+    <Compile Include="GUI\EffectManager.cs" />
     <Compile Include="GUI\GameUI.cs" />
     <Compile Include="GUI\MenuGUI\Button.cs" />
     <Compile Include="GUI\MenuGUI\ControlList.cs" />
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\app.manifest" />
     <None Include="PvEOnline_TemporaryKey.pfx" />
   </ItemGroup>
