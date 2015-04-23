@@ -35,6 +35,7 @@ namespace PvEOnline.Logic.Units
         public int[] unitFlags= new int[(int)UFlags.max];
         public Unit Target { get; set; }
         protected List<Buff> buffs;
+        public Color color=Color.White;
 
         public int hp { get { return health; } }
 
@@ -97,7 +98,7 @@ namespace PvEOnline.Logic.Units
         public virtual void Draw(GameTime gameTime, SpriteBatch sp)
         {
             ai.Draw(gameTime, sp);
-            sp.Draw(this.sprite, new Vector2(pos.X - sprite.Width / 2, pos.Y - sprite.Height +CONST.TILESIZEY/ 2), colors.Last());
+            sp.Draw(this.sprite, new Vector2(pos.X - sprite.Width / 2, pos.Y - sprite.Height +CONST.TILESIZEY/ 2),Color.Lerp(color, colors.Last(),0.5f));
         }
         public int getSkillNum()
         { 

@@ -12,7 +12,7 @@
     <atkRange>0</atkRange>
     <moveSpeed>1</moveSpeed>
     <ai>Elemental</ai>
-    <sprite>Error</sprite>
+    <sprite>Elemental</sprite>
     <race>Error</race>
   </Asset>
 </XnaContent>

@@ -60,12 +60,14 @@ namespace PvEOnline.AIs.Bosses
         {
             Console.WriteLine("Meelee");
             TimerHandler.AddTimer(unit.name, 600);
+            unit.color = Color.OrangeRed;
         }
         private void ChangeElem()
         {
             Console.WriteLine("changeElem");
             unit.setDest(new Vector2(1000, 1000));
             TimerHandler.AddTimer(unit.name, 5000);
+            unit.color = Color.Blue;
             //changeSprays();
         }
         private void ChangeTarget()
@@ -73,6 +75,7 @@ namespace PvEOnline.AIs.Bosses
             //aggro from uMan.getHealer(); UP
             Console.WriteLine("ChangeTargeT");
             TimerHandler.AddTimer(unit.name, 5000);
+            unit.color = Color.Yellow;
         }
         private void SpellIce()
         {

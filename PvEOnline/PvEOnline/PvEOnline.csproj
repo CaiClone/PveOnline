@@ -104,7 +104,6 @@
     <Compile Include="AIs\AI.cs" />
     <Compile Include="AIs\Bosses\Elemental.cs" />
     <Compile Include="AIs\Classes\Berserker.cs" />
-    <Compile Include="AIs\Classes\DiplomaticImmunity.cs" />
     <Compile Include="AIs\Classes\Guardian.cs" />
     <Compile Include="AIs\None.cs" />
     <Compile Include="CONST.cs" />
