@@ -11,17 +11,22 @@ namespace PvEOnline.Skills.BerserkerSkills
     {
         private int damage;
         public Perseverance(PClass caster, Berserker ai)
-            : base(caster)
+            : base(caster,ai)
         {
             CD = 7000;
             range = 100;
             costDesc = "0";
             name = "Perseverance";
+            damage = 100;
             info = "<c2" + name + "><n>The Berserker punches his target, dealing <c1[" + damage + "]> damage and reduces damage taken for 8 seconds <c7(Automatically used by the AI every 10 seconds)>";
         }
-        public override void Start()
+        public override void activate()
         {
-            startCD();
+
+        }
+        public override bool Usable()
+        {
+            return UsableOnSelf();
         }
     }
 }

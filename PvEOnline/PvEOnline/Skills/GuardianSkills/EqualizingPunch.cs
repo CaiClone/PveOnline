@@ -11,7 +11,7 @@ namespace PvEOnline.Skills.GuardianSkills
     {
         private Guardian ai;
         int damage;
-        public EqualizingPunch(PClass caster,Guardian ai) : base(caster)
+        public EqualizingPunch(PClass caster,Guardian ai) : base(caster,ai)
         {
             CD = 5000;
             range = 100;
@@ -19,14 +19,16 @@ namespace PvEOnline.Skills.GuardianSkills
             damage = 100;
             name = "Equalizing Punch";
             info = "<c2"+name+"><n>The Guardian punches his target, dealing <c1[" + damage + "+(10% of the last attack recived)]> damage <c7(Automatically used by the AI every 12 seconds)>";
+            this.ai = ai;
         }
-        public override void Start()
+        public override void activate()
         {
-            startCD();
-            //caster.getTarget().damage(ai.getlastDamage());
-            Unit target = caster.getTarget();
-            if(target!=null)
-                target.DealDamage(damage, Logic.Units.DamageType.Physical);
+            int lastDamage = ai.getlastDamage();
+            caster.getTarget().DealDamage(damage + (int)(lastDamage * 0.1), DamageType.Physical);
+        }
+        public override bool Usable()
+        {
+            return UsableOnTarget();
         }
     }
 }

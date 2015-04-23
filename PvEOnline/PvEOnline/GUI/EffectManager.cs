@@ -21,12 +21,16 @@ namespace PvEOnline.GUI
             for (int i = 0; i < effects.Count;i++)
                     effects[i].draw(gameTime, sp);
         }
+        public static void Remove(Drawable draw)
+        {
+            effects.Remove(draw);
+        }
         public static void AdddmgEffectDrawable(int num,Vector2 pos)
         {
             effects.Add(new dmgEffectDrawable(num, pos));
         }
     }
-    abstract class Drawable
+    public abstract class Drawable
     {
         public abstract void update(GameTime gameTime);
         public abstract void draw(GameTime gameTime, SpriteBatch sp);
@@ -46,7 +50,10 @@ namespace PvEOnline.GUI
         }
         public override void update(GameTime gameTime)
         {
-            pos += new Vector2(0, (float)gameTime.ElapsedGameTime.TotalSeconds * -200);
+            pos += new Vector2(0, (float)gameTime.ElapsedGameTime.TotalSeconds * -100);
+            col.A -= (byte)((float)gameTime.ElapsedGameTime.TotalSeconds * 200);
+            if (col.A< 20)
+                EffectManager.Remove(this);
         }
         public override void draw(GameTime gameTime, SpriteBatch sp)
         {

@@ -19,7 +19,7 @@ namespace PvEOnline.AIs.Classes
         {
             //skills.Add(new DoubleEdgeShield((PClass)u, this));
             skills.Add(new Perseverance((PClass)u, this));
-            skills.Add(new DiplomaticImmunity((PClass)u));
+            skills.Add(new DiplomaticImmunity((PClass)u, this));
             /*
             skills.Add(new TheBeastDefender((PClass)u, this));//Volia fer un chiste malo sobre Best y Beast. :(
             skills.Add(new ShieldsUp((PClass)u, this));

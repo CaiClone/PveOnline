@@ -12,7 +12,9 @@ namespace PvEOnline.AIs.Classes
 {
     public class Guardian:AI
     {
-        private int kindness = 10;
+        private static int MAXKINDNESS = 10;
+        private int kindness = MAXKINDNESS;
+        private int lastDamage = 0;
         public Guardian(Unit u, Dungeon d, UnitManager uM, int seed)
             : base(u, d, uM, seed)
         {
@@ -22,8 +24,14 @@ namespace PvEOnline.AIs.Classes
         public override void Update()
         {
             behaviour_getInAutoattackRange();
+            gainKindness(1);
         }
 
+        public void gainKindness(int num)
+        {
+            if (kindness < MAXKINDNESS)
+                kindness+=num;
+        }
         public void useKindness(int used)
         {
             kindness -= used;
@@ -40,6 +48,14 @@ namespace PvEOnline.AIs.Classes
         public override float getAutoattackRange()
         {
             return 100f;
+        }
+        public override void recieveDamage(ref int num, DamageType flags)
+        {
+            lastDamage = num;
+        }
+        public int getlastDamage()
+        {
+            return lastDamage;
         }
     }
 }

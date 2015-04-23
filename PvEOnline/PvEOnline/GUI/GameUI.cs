@@ -32,12 +32,15 @@ namespace PvEOnline.GUI
         {
             int len = list.Count;
             for(int i=len-1;i>-1;i--){
-                bool rdy = list[i].ready;
+                bool rdy = list[i].Usable();
                 sp.Draw(list[i].icon, rect[i], rdy? Color.White: Color.Gray);
                 sp.DrawString(spf, keys[len-i-1], new Vector2(rect[i].X + CONST.ICONSIZE - 25, rect[i].Y+CONST.ICONSIZE - 25), Color.Black);
                 if(!rdy){
-                    string remain = timeConvert(list[i].getTimer()).ToString();
-                    sp.DrawString(spf, remain, new Vector2(rect[i].X + CONST.ICONSIZE / 2 - spf.MeasureString(remain).X / 2, rect[i].Y + CONST.ICONSIZE / 2 - cdDispY), CONST.COLORS[8]);
+                    int left = list[i].getTimer();
+                    if(left>0){
+                        string remain = timeConvert(left).ToString();
+                        sp.DrawString(spf, remain, new Vector2(rect[i].X + CONST.ICONSIZE / 2 - spf.MeasureString(remain).X / 2, rect[i].Y + CONST.ICONSIZE / 2 - cdDispY), CONST.COLORS[8]);
+                    }
                 }
             }
         }
