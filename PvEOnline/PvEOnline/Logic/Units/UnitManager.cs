@@ -147,5 +147,14 @@ namespace PvEOnline.Logic.Units
         {
             return selected[0].getSkills();
         }
+
+        public List<Unit> getPlayerUnits()
+        {
+            List<Unit> uL = new List<Unit>();
+            foreach (Unit u in units)
+                if (u.usable)
+                    uL.Add(u);
+            return uL;
+        }
     }
 }

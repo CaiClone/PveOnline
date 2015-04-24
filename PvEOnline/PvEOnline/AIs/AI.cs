@@ -20,6 +20,8 @@ namespace PvEOnline.AIs
         protected Random rnd;
         protected List<Skill> skills;
         protected Stack<Vector2> route;
+        protected Dictionary<Unit,int> aggro;
+        public bool selfTarget = true;
         public AI(Unit u, Dungeon d, UnitManager uM, int seed)
         {
             unit = u;
@@ -28,6 +30,9 @@ namespace PvEOnline.AIs
             rnd = new Random(seed);
             skills = new List<Skill>();
             route = new Stack<Vector2>();
+            aggro = new Dictionary<Unit, int>();
+            foreach (Unit un in uM.getPlayerUnits())
+                aggro.Add(un, 0);
         }
         protected int PickAction(List<int> probs, Random rnd)
         {
@@ -56,7 +61,7 @@ namespace PvEOnline.AIs
         protected void behaviour_getInAutoattackRange()
         {
             if(unit.Target!=null)
-                if(distToTarget(unit.pos)>getAutoattackRange())
+                if(distToTarget(unit.pos)>(getAutoattackRange()-10f))
                     unit.setDest(unit.Target.pos);
                 else
                     unit.clearRoute();
@@ -135,7 +140,10 @@ namespace PvEOnline.AIs
             return (unit.Target.pos - point).Length();
         }
 
-        public abstract float getAutoattackRange();
+        public virtual float getAutoattackRange()
+        {
+            return unit.getAtkRange();
+        }
         public void orderMove(Vector2 dest)
         {
             if (unit.Target!=null && distToTarget(dest)> getAutoattackRange())
@@ -153,6 +161,24 @@ namespace PvEOnline.AIs
         public virtual void recieveDamage(ref int num, DamageType flags)
         {
 
+        }
+        public virtual void generateAggro(Unit u, int num)
+        {
+            if (selfTarget)
+            {
+                if (aggro.ContainsKey(u))
+                {
+                    aggro[u] += num;
+                    Unit target = unit.getTarget();
+                    if (target == null)
+                        unit.Target = u;
+                    else if (aggro[u] > (aggro[target] * (
+                        (distToTarget(u.pos) < 200) ? 1.1 : 1.4))) //Only require 110% aggro for am meele change, 140% for a ranged change
+                        unit.Target=u;
+                }
+                else
+                    aggro.Add(u, num);
+            }
         }
     }
     public enum Elements

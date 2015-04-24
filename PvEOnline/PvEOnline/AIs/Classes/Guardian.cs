@@ -45,10 +45,6 @@ namespace PvEOnline.AIs.Classes
         {
             return Color.Aqua;
         }
-        public override float getAutoattackRange()
-        {
-            return 100f;
-        }
         public override void recieveDamage(ref int num, DamageType flags)
         {
             lastDamage = num;

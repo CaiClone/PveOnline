@@ -30,7 +30,7 @@ namespace PvEOnline.Logic.Units
         public bool usable;
         protected int owner;
         protected Texture2D sprite;
-        protected State state;
+        public State state;
         private int health;
         public int[] unitFlags= new int[(int)UFlags.max];
         public Unit Target { get; set; }
@@ -73,7 +73,7 @@ namespace PvEOnline.Logic.Units
                         Vector2 dest = ai.getDest();
                         Vector2 direction = pos - dest;
                         Vector2 oldpos = pos;
-                        if (Math.Abs(direction.Length()) > 2f)
+                        if (Math.Abs(direction.Length()) > 10f)
                         {
                             direction.Normalize();
                             pos -= (direction * CONST.BASESPEED) * pstats.moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -155,20 +155,28 @@ namespace PvEOnline.Logic.Units
                 num -= (armor <= num) ? armor : 0;
             }
         }
-        public void DealDamage(int num,DamageType flags)
+        public void DealDamage(Unit u,int num,DamageType flags)
         {
             int real = num;
             applyArmor(ref real,flags);
 
             //inform AI maybe he wants something with it
             ai.recieveDamage(ref real, flags);
-
+            ai.generateAggro(u,real);
             EffectManager.AdddmgEffectDrawable(real, pos);
             health -= real;
         }
         public int getMaxHP()
         {
             return pstats.maxhp + bonusStats.maxhp;
+        }
+        public int getAtkRange()
+        {
+            return pstats.atkRange + bonusStats.atkRange;
+        }
+        public int getAtk()
+        {
+            return pstats.atk + bonusStats.atk;
         }
     }
     public enum State

@@ -27,6 +27,7 @@ namespace PvEOnline.Logic.Units.Classes
         public override void loadAi(Dungeon d, UnitManager uM, int seed)
         {
             base.loadAi(d, uM, seed);
+            ai.selfTarget = false;
             this.ai.loadSkillIcons(uM.gameRef.Content, folder);
         }
         public override void Update(GameTime gameTime)

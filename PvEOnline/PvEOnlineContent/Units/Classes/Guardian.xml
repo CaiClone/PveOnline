@@ -3,13 +3,13 @@
   <Asset Type="DataTypes.StatsData">
     <maxhp>1</maxhp>
     <maxresource>1</maxresource>
-    <atk>1</atk>
-    <magic>1</magic>
-    <pDef>1</pDef>
-    <mDef>1</mDef>
+    <atk>50</atk>
+    <magic>20</magic>
+    <pDef>50</pDef>
+    <mDef>30</mDef>
     <critRatio>0</critRatio>
     <haste>0</haste>
-    <atkRange>0</atkRange>
+    <atkRange>30</atkRange>
     <moveSpeed>1</moveSpeed>
     <ai>Guardian</ai>
     <sprite>Guardian</sprite>

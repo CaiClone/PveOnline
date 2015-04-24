@@ -43,11 +43,7 @@ namespace PvEOnline.AIs.Classes
         }
         public override Color getColor()
         {
-            return Color.Aqua;
-        }
-        public override float getAutoattackRange()
-        {
-            return 20f;
+            return Color.DarkRed;
         }
     }
 }

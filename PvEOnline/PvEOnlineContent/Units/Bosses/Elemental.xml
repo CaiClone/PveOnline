@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
   <Asset Type="DataTypes.StatsData">
-    <maxhp>1</maxhp>
-    <maxresource>1</maxresource>
-    <atk>1</atk>
-    <magic>1</magic>
-    <pDef>1</pDef>
-    <mDef>1</mDef>
-    <critRatio>0</critRatio>
-    <haste>0</haste>
-    <atkRange>0</atkRange>
-    <moveSpeed>1</moveSpeed>
+    <maxhp>5000</maxhp>
+    <atk>100</atk>
+    <magic>100</magic>
+    <pDef>20</pDef>
+    <mDef>50</mDef>
+    <critRatio>10</critRatio>
+    <haste>100</haste>
+    <atkRange>200</atkRange>
+    <moveSpeed>1.2</moveSpeed>
     <ai>Elemental</ai>
     <sprite>Elemental</sprite>
     <race>Error</race>

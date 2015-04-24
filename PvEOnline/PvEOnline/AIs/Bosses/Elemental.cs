@@ -32,7 +32,7 @@ namespace PvEOnline.AIs.Bosses
                 List<Action> actions = new List<Action>();
                 List<int> probs = new List<int>();
                 actions.Add(MeleeAttack);
-                probs.Add(8);
+                probs.Add(20);
                 switch (estate)
                 {
                     case EleStates.Clear:
@@ -55,12 +55,20 @@ namespace PvEOnline.AIs.Bosses
                 }
                 actions[PickAction(probs, rnd)]();
             }
+            if (unit.state != State.Moving) 
+                behaviour_getInAutoattackRange();
         }
         private void MeleeAttack()
         {
-            Console.WriteLine("Meelee");
-            TimerHandler.AddTimer(unit.name, 600);
-            unit.color = Color.OrangeRed;
+            Unit Target = unit.Target;
+            if (Target != null && distToTarget(unit.pos)<=getAutoattackRange())
+            {
+                unit.Target.DealDamage(unit, unit.getAtk(), DamageType.Physical);
+                unit.color = Color.OrangeRed;
+                TimerHandler.AddTimer(unit.name, 600);
+            }
+            else
+                TimerHandler.AddTimer(unit.name, 100);
         }
         private void ChangeElem()
         {
@@ -73,17 +81,11 @@ namespace PvEOnline.AIs.Bosses
         private void ChangeTarget()
         {
             //aggro from uMan.getHealer(); UP
-            Console.WriteLine("ChangeTargeT");
-            TimerHandler.AddTimer(unit.name, 5000);
-            unit.color = Color.Yellow;
+            TimerHandler.AddTimer(unit.name, 500);
         }
         private void SpellIce()
         {
 
-        }
-        public override float getAutoattackRange()
-        {
-            return 40f;
         }
         /*private void changeSprays()
         {

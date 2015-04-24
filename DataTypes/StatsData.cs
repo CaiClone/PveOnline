@@ -16,11 +16,11 @@ namespace DataTypes
         public int magic = 0;
         public int pDef = 0;
         public int mDef = 0;
-        public float critRatio = 0f;
+        public int critRatio = 0;
         [ContentSerializer(Optional = true)]
-        public float haste = 0f;
-        public float atkRange = 0f;
-        public float moveSpeed= 0f;
+        public int haste = 0;
+        public int atkRange = 0;
+        public float moveSpeed = 0;
         public String ai = "None"; //<3
         public String sprite = "Error";
         public Race race = Race.Error;

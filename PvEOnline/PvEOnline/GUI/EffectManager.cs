@@ -53,7 +53,7 @@ namespace PvEOnline.GUI
         public override void update(GameTime gameTime)
         {
             pos += new Vector2(0, (float)gameTime.ElapsedGameTime.TotalSeconds * -100);
-            alpha += (float)gameTime.ElapsedGameTime.TotalSeconds *0.8f;
+            alpha += (float)gameTime.ElapsedGameTime.TotalSeconds *0.6f;
             if (alpha==1)
                 EffectManager.Remove(this);
         }
